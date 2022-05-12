@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.4
   web_socket_channel: ^2.2.0
   get: ^4.6.1
+  flutter_screenutil: ^5.5.2
 
 dev_dependencies:
   flutter_test:
