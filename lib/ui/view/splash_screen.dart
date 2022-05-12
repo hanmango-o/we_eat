@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:we_eat/asset/data/service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,8 +12,38 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late Future init;
+
+  @override
+  void initState() {
+    super.initState();
+    init = readyForStart();
+  }
+
+  Future readyForStart() async {
+    Timer(
+      const Duration(seconds: 1),
+      () async {
+        Get.offAllNamed(Service.HOME_ROUTE);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return WillPopScope(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: FutureBuilder(
+          future: init,
+          builder: (context, snapshot) {
+            return Center(
+              child: Text('Splash'),
+            );
+          },
+        ),
+      ),
+      onWillPop: () async => false,
+    );
   }
 }
