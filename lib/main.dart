@@ -74,10 +74,11 @@ class WeEat extends StatelessWidget {
               fontFamily: Font.SEBANGGothic.name,
               fontWeight: FontWeight.w900,
             ),
-            actionsIconTheme: IconThemeData(
-              color: Color(0xFF9561D8),
-              size: 25.sp,
-            ),
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            selectedItemColor: Color(0xFF9561D8),
           ),
         ),
         initialRoute: Service.SPLASH_ROUTE,
