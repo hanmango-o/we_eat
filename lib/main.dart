@@ -7,9 +7,10 @@ import 'package:we_eat/ui/view/add_friend_screen.dart';
 import 'package:we_eat/ui/view/chat_list_screen.dart';
 import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/view/home_screen.dart';
+import 'package:we_eat/ui/view/main_screen.dart';
 import 'package:we_eat/ui/view/sign_in_screen.dart';
 import 'package:we_eat/ui/view/sign_up_screen.dart';
-import 'package:we_eat/ui/view/splash_screen.dart';
+import 'package:we_eat/splash_screen.dart';
 
 void main() {
   runApp(const WeEat());
@@ -23,10 +24,9 @@ class WeEat extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       builder: (child) => GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'WE_EAT',
         theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 47, 84, 170),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 233, 239, 255),
+          primaryColor: Color(0xFF9561D8),
           fontFamily: Font.SEBANGGothic.name,
           textTheme: TextTheme(
             headline1: TextStyle(
@@ -64,6 +64,21 @@ class WeEat extends StatelessWidget {
               fontWeight: FontWeight.normal,
             ),
           ),
+          appBarTheme: AppBarTheme(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            elevation: 0.0,
+            centerTitle: false,
+            titleTextStyle: TextStyle(
+              fontSize: 22.sp,
+              color: const Color.fromARGB(255, 0, 0, 0),
+              fontFamily: Font.SEBANGGothic.name,
+              fontWeight: FontWeight.w900,
+            ),
+            actionsIconTheme: IconThemeData(
+              color: Color(0xFF9561D8),
+              size: 25.sp,
+            ),
+          ),
         ),
         initialRoute: Service.SPLASH_ROUTE,
         getPages: [
@@ -72,8 +87,8 @@ class WeEat extends StatelessWidget {
             page: () => SplashScreen(),
           ),
           GetPage(
-            name: Service.HOME_ROUTE,
-            page: () => HomeScreen(),
+            name: Service.MAIN_ROUTE,
+            page: () => MainScreen(),
           ),
           GetPage(
             name: Service.SIGN_UP_ROUTE,

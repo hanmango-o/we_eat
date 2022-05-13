@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 1),
       () async {
-        Get.offAllNamed(Service.HOME_ROUTE);
+        Get.offAllNamed(Service.MAIN_ROUTE);
       },
     );
   }
