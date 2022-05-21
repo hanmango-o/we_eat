@@ -33,7 +33,7 @@ class BoardComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
+            padding: EdgeInsets.only(top: 0.w, left: 0.w, right: 0.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,7 +42,7 @@ class BoardComponent extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                     edge ?? const SizedBox(),
                   ],
