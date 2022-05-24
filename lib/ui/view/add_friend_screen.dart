@@ -11,7 +11,11 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('친구 추가'),
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      body: Container(),
     );
   }
 }
