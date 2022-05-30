@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/component/board_component.dart';
+import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/widget/friend_tile_widget.dart';
+import 'package:web_socket_channel/io.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -92,6 +94,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Colors.white,
                 child: Column(
                   children: [
+                    ElevatedButton(
+                      onPressed: () => Get.to(
+                        ChatRoomScreen(
+                          title: '아아아ㅏ',
+                          uri: Uri.parse('ws://localhost:8080/ws/chat'),
+                        ),
+                      ),
+                      child: Text('채팅방으로'),
+                    ),
                     Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),

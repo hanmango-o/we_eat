@@ -174,10 +174,10 @@ class WeEat extends StatelessWidget {
             name: Service.CHAT_LIST_ROUTE,
             page: () => ChatListScreen(),
           ),
-          GetPage(
-            name: Service.CHAT_ROOM_ROUTE,
-            page: () => ChatRoomScreen(),
-          ),
+          // GetPage(
+          //   name: Service.CHAT_ROOM_ROUTE,
+          //   page: () => ChatRoomScreen(),
+          // ),
           GetPage(
             name: Service.ADD_FRIEND_ROUTE,
             page: () => AddFriendScreen(),

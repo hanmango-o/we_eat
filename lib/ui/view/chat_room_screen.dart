@@ -1,37 +1,41 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final title = 'WebSocket Demo';
-//     return MaterialApp(
-//       title: title,
-//       home: MyHomePage(
-//         title: title,
-//         channel: IOWebSocketChannel.connect('ws://echo.websocket.org'),
-//       ),
-//     );
-//   }
-// }
+import 'package:web_socket_channel/status.dart' as status;
 
 class ChatRoomScreen extends StatefulWidget {
   final String title;
-  final WebSocketChannel channel;
+  final Uri uri;
 
-  ChatRoomScreen({Key? key, required this.title, required this.channel})
+  ChatRoomScreen({Key? key, required this.title, required this.uri})
       : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ChatRoomScreenState createState() => _ChatRoomScreenState();
 }
 
-class _MyHomePageState extends State<ChatRoomScreen> {
+class _ChatRoomScreenState extends State<ChatRoomScreen> {
+  late IOWebSocketChannel channel;
+
   TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    channel = IOWebSocketChannel.connect(widget.uri);
+    log(channel.sink.toString());
+
+    channel.sink.add(jsonEncode({
+      "type": "ENTER",
+      "roomId": "10e07fa1-f72e-45ba-b056-cd5f7e1633fe",
+      "sender": "한영찬2",
+      "message": ""
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +47,23 @@ class _MyHomePageState extends State<ChatRoomScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Form(
               child: TextFormField(
                 controller: _controller,
-                decoration: InputDecoration(labelText: 'Send a message'),
+                decoration: const InputDecoration(labelText: 'Send a message'),
               ),
             ),
+            const SizedBox(height: 24),
             StreamBuilder(
-              stream: widget.channel.stream,
+              stream: channel.stream,
               builder: (context, snapshot) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: Text(snapshot.hasData ? '${snapshot.data}' : ''),
-                );
+                Map<String, dynamic> data =
+                    jsonDecode(snapshot.data.toString());
+                log(data.toString());
+                return Text(snapshot.hasData
+                    ? '${data['sender']} : ${data['message']}'
+                    : '');
               },
             )
           ],
@@ -65,20 +72,27 @@ class _MyHomePageState extends State<ChatRoomScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _sendMessage,
         tooltip: 'Send message',
-        child: Icon(Icons.send),
+        child: const Icon(Icons.send),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      widget.channel.sink.add(_controller.text);
+      log(_controller.text);
+      channel.sink.add({
+        "type": "TALK",
+        "roomId": "10e07fa1-f72e-45ba-b056-cd5f7e1633fe",
+        "sender": "한영찬",
+        "message": _controller.text
+      });
     }
   }
 
   @override
   void dispose() {
-    widget.channel.sink.close();
+    channel.sink.close();
+    _controller.dispose();
     super.dispose();
   }
 }

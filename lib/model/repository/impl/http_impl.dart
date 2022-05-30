@@ -4,12 +4,6 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class HttpImpl implements HttpInterface {
-  // static final HttpImpl _instance = HttpImpl._internal();
-
-  // factory HttpImpl() => _instance;
-
-  // HttpImpl._internal();
-
   @override
   Uri getUri(String url) => Uri.parse(url);
 
