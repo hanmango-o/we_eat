@@ -32,12 +32,3 @@ class ChatVO {
     return '{type:$type, roomId:$roomId, sender:$sender, message:$message}';
   }
 }
-
-/*
-channel.sink.add(jsonEncode({
-      "type": "ENTER",
-      "roomId": "10e07fa1-f72e-45ba-b056-cd5f7e1633fe",
-      "sender": "한영찬2",
-      "message": ""
-    }));
-*/
