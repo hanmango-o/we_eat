@@ -11,6 +11,13 @@ class UserVO {
     this.user_dept,
   });
 
+  UserVO.fromMap(Map<String, dynamic> map) {
+    user_id = map['user_id'];
+    user_name = map['user_name'];
+    user_sid = map['user_sid'];
+    user_dept = map['user_dept'];
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'user_id': user_id,
@@ -18,13 +25,6 @@ class UserVO {
       'user_sid': user_sid,
       'user_dept': user_dept,
     };
-  }
-
-  UserVO.fromMap(Map<String, dynamic> map) {
-    user_id = map['user_id'];
-    user_name = map['user_name'];
-    user_sid = map['user_sid'];
-    user_dept = map['user_dept'];
   }
 
   @override
