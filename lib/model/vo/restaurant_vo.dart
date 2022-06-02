@@ -1,13 +1,14 @@
-class Restaurant {
+class RestaurantVO {
   late String place_name;
   late String address_name;
+  bool selected = false;
 
-  Restaurant({
+  RestaurantVO({
     required this.place_name,
     required this.address_name,
   });
 
-  Restaurant.fromMap(Map<String, dynamic> map) {
+  RestaurantVO.fromMap(Map<String, dynamic> map) {
     place_name = map['place_name'];
     address_name = map['address_name'];
   }
@@ -21,6 +22,6 @@ class Restaurant {
 
   @override
   String toString() {
-    return '{place_name:$place_name, address_name:$address_name}';
+    return '{place_name:$place_name, address_name:$address_name, selected:$selected}';
   }
 }

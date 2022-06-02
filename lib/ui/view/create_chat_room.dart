@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:we_eat/model/repository/impl/http_impl.dart';
 import 'package:we_eat/ui/component/board_component.dart';
+import 'package:we_eat/view_model/controller/chat_room_controller.dart';
+import 'package:we_eat/view_model/controller/restaurant_controller.dart';
 
 class CreateChatRoomScreen extends StatefulWidget {
   const CreateChatRoomScreen({Key? key}) : super(key: key);
@@ -12,17 +17,13 @@ class CreateChatRoomScreen extends StatefulWidget {
 
 class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
   TextEditingController title = TextEditingController();
+  TextEditingController keyword = TextEditingController();
+  final RestaurantController _restaurantController =
+      Get.put(RestaurantController());
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> _map = [
-      {'title': '교촌치킨(역곡2동점)', 'position': '경기 부천시 부일로 696', 'selected': false},
-      {'title': '교촌치킨(역곡2동점)', 'position': '경기 부천시 부일로 696', 'selected': false},
-      {'title': '교촌치킨(역곡2동점)', 'position': '경기 부천시 부일로 696', 'selected': false},
-      {'title': '교촌치킨(역곡2동점)', 'position': '경기 부천시 부일로 696', 'selected': false},
-    ];
-    List<bool> _list = List.filled(_map.length, false);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('채팅방 생성'),
@@ -51,7 +52,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: TextFormField(
                 controller: title,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
                 textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(
                   labelText: '채팅방 이름 입력',
@@ -86,7 +87,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: TextFormField(
-                controller: title,
+                controller: keyword,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(
@@ -110,6 +111,10 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                     ),
                   ),
                 ),
+                onEditingComplete: () async {
+                  FocusScope.of(context).unfocus();
+                  await _restaurantController.getRestaurants(keyword.text);
+                },
               ),
             ),
             Container(
@@ -123,12 +128,44 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 color: Color.fromARGB(255, 255, 252, 252),
               ),
               height: 250.h,
-              child: ListView.builder(
-                itemCount: _map.length,
-                itemBuilder: ((context, index) => ListTile(
-                      title: Text(_map[index]['title']),
-                      subtitle: Text(_map[index]['position']),
-                    )),
+              child: Obx(
+                () {
+                  if (_restaurantController.isLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    return ListView.builder(
+                      itemCount: _restaurantController.list.length,
+                      itemBuilder: ((context, index) => ListTile(
+                            onTap: () {
+                              setState(() {
+                                if (selectedIndex != -1) {
+                                  _restaurantController
+                                      .list[selectedIndex].selected = false;
+                                }
+                                _restaurantController.list[index].selected =
+                                    true;
+                                selectedIndex = index;
+                              });
+                            },
+                            selected:
+                                _restaurantController.list[index].selected,
+                            selectedColor: Theme.of(context).primaryColor,
+                            title: Text(
+                              _restaurantController.list[index].place_name,
+                            ),
+                            subtitle: Text(
+                              _restaurantController.list[index].address_name,
+                            ),
+                            trailing: _restaurantController.list[index].selected
+                                ? Icon(
+                                    Icons.check,
+                                    color: Theme.of(context).primaryColor,
+                                  )
+                                : null,
+                          )),
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(height: 20),
@@ -207,8 +244,8 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () => null,
                 child: Text('채팅방 생성'),
+                onPressed: () async {},
               ),
             ),
           ],

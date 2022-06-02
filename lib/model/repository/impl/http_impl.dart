@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:we_eat/model/interface/http_Interface.dart';
 
 import 'dart:convert' as convert;
@@ -22,12 +25,12 @@ class HttpImpl implements HttpInterface {
   }
 
   @override
-  Future get(Uri uri) async {
+  Future<List> get(Uri uri) async {
     var response = await http.get(uri);
     switch (response.statusCode) {
       case 200:
-        Map<String, dynamic> jsonResponse =
-            convert.jsonDecode(response.body) as Map<String, dynamic>;
+        List<dynamic> jsonResponse = convert.jsonDecode(response.body);
+        // log(jsonResponse[1].runtimeType.toString());
         return jsonResponse;
       default:
         throw Exception(response.statusCode);
