@@ -184,7 +184,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                       Text(
                         'option',
                         style: Theme.of(context).textTheme.headline6,
-                      )
+                      ),
                     ],
                   ),
                   IconButton(
