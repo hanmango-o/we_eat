@@ -12,12 +12,16 @@ class HttpImpl implements HttpInterface {
 
   @override
   Future post(Uri uri, Object? body) async {
-    var response = await http.post(uri, body: body);
-    // 임시
+    // log(body.toString());
+    var response = await http.post(
+      uri,
+      headers: {"Content-Type": "application/json"},
+      body: convert.jsonEncode(body),
+    );
     switch (response.statusCode) {
       case 200:
-        Map<String, dynamic> jsonResponse =
-            convert.jsonDecode(response.body) as Map<String, dynamic>;
+        log(response.body.runtimeType.toString());
+        dynamic jsonResponse = convert.jsonDecode(response.body);
         return jsonResponse;
       default:
         throw Exception(response.statusCode);
@@ -30,7 +34,6 @@ class HttpImpl implements HttpInterface {
     switch (response.statusCode) {
       case 200:
         List<dynamic> jsonResponse = convert.jsonDecode(response.body);
-        // log(jsonResponse[1].runtimeType.toString());
         return jsonResponse;
       default:
         throw Exception(response.statusCode);

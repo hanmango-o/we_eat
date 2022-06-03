@@ -30,7 +30,6 @@ class RestaurantController extends GetxController {
   /// |:-----------|:---------------------------------------------------------|
   /// |   `true`   |음식점 요청이 완료되어 [_list]에 정상적으로 음식점 정보가 들어온 상태    |
   /// |   `false`  |음식점 요청을 수행하고 있는 상태로, [_list]에 아직 음식점 정보가 없는 상태|
-  ///
   final RxBool _isLoading = false.obs;
 
   get list => _list;

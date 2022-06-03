@@ -245,7 +245,21 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 child: Text('채팅방 생성'),
-                onPressed: () async {},
+                onPressed: () async {
+                  Uri uri =
+                      HttpImpl().getUri('http://localhost:8080/chat/create');
+                  var temp = await HttpImpl().post(uri, {
+                    "chat_name": "chatroom2",
+                    "chat_restaurant": "chicken",
+                    "userIdList": [
+                      {"user_id": "minji"},
+                      {"user_id": "chulsu"},
+                      {"user_id": "gihyun"}
+                    ]
+                  });
+                  log('d');
+                  log(temp.toString());
+                },
               ),
             ),
           ],

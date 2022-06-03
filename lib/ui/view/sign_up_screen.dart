@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/schinfo.dart';
+import 'package:we_eat/model/repository/impl/http_impl.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -153,8 +154,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () => null,
                 child: Text('회원가입'),
+                onPressed: () async {
+                  // HttpImpl().post(uri, body)
+                },
               ),
             ),
           ],
