@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/model/repository/impl/http_impl.dart';
-import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
 import 'package:we_eat/view_model/controller/restaurant_controller.dart';
 
@@ -18,8 +17,10 @@ class CreateChatRoomScreen extends StatefulWidget {
 class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
   TextEditingController title = TextEditingController();
   TextEditingController keyword = TextEditingController();
+  final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
   final RestaurantController _restaurantController =
       Get.put(RestaurantController());
+
   int selectedIndex = -1;
 
   @override
@@ -246,9 +247,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               child: ElevatedButton(
                 child: Text('채팅방 생성'),
                 onPressed: () async {
-                  Uri uri =
-                      HttpImpl().getUri('http://localhost:8080/chat/create');
-                  var temp = await HttpImpl().post(uri, {
+                  await _chatRoomController.createChatRoom({
                     "chat_name": "chatroom2",
                     "chat_restaurant": "chicken",
                     "userIdList": [
@@ -257,8 +256,17 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                       {"user_id": "gihyun"}
                     ]
                   });
-                  log('d');
-                  log(temp.toString());
+                  // Uri uri =
+                  //     HttpImpl().getUri('http://localhost:8080/chat/create');
+                  // var temp = await HttpImpl().post(uri, {
+                  //   "chat_name": "chatroom2",
+                  //   "chat_restaurant": "chicken",
+                  //   "userIdList": [
+                  //     {"user_id": "minji"},
+                  //     {"user_id": "chulsu"},
+                  //     {"user_id": "gihyun"}
+                  //   ]
+                  // });
                 },
               ),
             ),

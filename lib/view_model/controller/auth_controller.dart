@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/status/auth.dart';
+import 'package:we_eat/model/vo/user_vo.dart';
 
 /// [AuthController]는 Sign 상태와 처리 결과를 반환하여 전역적으로 [Auth] 상태를 관리합니다.
 ///
@@ -39,6 +40,7 @@ import 'package:we_eat/asset/status/auth.dart';
 /// - [Getx] https://pub.dev/documentation/get/latest/
 class AuthController extends GetxController {
   static Auth status = Auth.signOut;
+  static late UserVO info;
 
   AuthController get to => Get.find();
 }

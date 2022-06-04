@@ -49,7 +49,7 @@ class RestaurantController extends GetxController {
     if (keyword != null) {
       _isLoading.value = true;
       _list.clear();
-      String url = API.GET_RESTAURANTS + keyword;
+      String url = API.GET_Restaurants + keyword;
 
       RestaurantRepository _restaurantRepository = RestaurantRepository();
       _restaurantRepository.getRestaurants(url).then((result) {

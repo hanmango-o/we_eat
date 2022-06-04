@@ -151,6 +151,9 @@ class WeEat extends StatelessWidget {
               ),
             ),
           ),
+          progressIndicatorTheme: ProgressIndicatorThemeData(
+            color: Color(0xFF9561D8),
+          ),
         ),
         initialRoute: Service.SPLASH_ROUTE,
         getPages: [

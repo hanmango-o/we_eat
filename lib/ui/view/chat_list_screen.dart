@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/service.dart';
+import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/view/create_chat_room.dart';
 import 'package:we_eat/ui/widget/chat_room_tile_widget.dart';
+import 'package:we_eat/view_model/controller/chat_room_controller.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
@@ -13,50 +17,7 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
-  List<Map<String, dynamic>> _chatList = [
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-    {
-      'title': '치킨 드실 분~',
-      'position': '교촌치킨(역곡2호점)',
-      'ws': 'ws://dfdfdfd:8080',
-      'createdTime': 'today 6PM'
-    },
-  ];
+  final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +29,54 @@ class _ChatListScreenState extends State<ChatListScreen> {
         onPressed: () => Get.toNamed(Service.CREATE_CHAT_ROOM_ROUTE),
         child: Icon(Icons.add),
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        itemCount: _chatList.length,
-        itemBuilder: (context, index) => ChatRoomTileWidget(
-          title: _chatList[index]['title'],
-          position: _chatList[index]['position'],
-          createdTime: _chatList[index]['createdTime'],
+      body: RefreshIndicator(
+        color: Theme.of(context).primaryColor,
+        onRefresh: () async {
+          await _chatRoomController.getChatRooms();
+        },
+        child: Obx(
+          () {
+            if (_chatRoomController.isLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                itemCount: _chatRoomController.list.length,
+                itemBuilder: ((context, index) => ChatRoomTileWidget(
+                      title: _chatRoomController.list[index].chat_name,
+                      position: _chatRoomController.list[index].chat_restaurant,
+                      createdTime:
+                          _chatRoomController.list[index].chat_create_time,
+                      onTab: () => Get.to(
+                        ChatRoomScreen(
+                          title: '아아아ㅏ',
+                          uri: Uri.parse('ws://localhost:8080/ws/chat'),
+                        ),
+                      ),
+                    )),
+              );
+            }
+          },
         ),
       ),
+      // body: Center(
+      //   child: ElevatedButton(
+      //     onPressed: () async {
+      //       await _chatRoomController.getChatRooms();
+      //       log(_chatRoomController.list.toString());
+      //     },
+      //     child: Text('전체 채팅방 보기'),
+      //   ),
+      // ),
+      // body: ListView.builder(
+      //   padding: EdgeInsets.symmetric(horizontal: 20.w),
+      //   itemCount: _chatList.length,
+      //   itemBuilder: (context, index) => ChatRoomTileWidget(
+      //     title: _chatList[index]['title'],
+      //     position: _chatList[index]['position'],
+      //     createdTime: _chatList[index]['createdTime'],
+      //   ),
+      // ),
     );
   }
 }

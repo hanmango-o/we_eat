@@ -20,7 +20,6 @@ class HttpImpl implements HttpInterface {
     );
     switch (response.statusCode) {
       case 200:
-        log(response.body.runtimeType.toString());
         dynamic jsonResponse = convert.jsonDecode(response.body);
         return jsonResponse;
       default:
@@ -29,11 +28,11 @@ class HttpImpl implements HttpInterface {
   }
 
   @override
-  Future<List> get(Uri uri) async {
+  Future get(Uri uri) async {
     var response = await http.get(uri);
     switch (response.statusCode) {
       case 200:
-        List<dynamic> jsonResponse = convert.jsonDecode(response.body);
+        dynamic jsonResponse = convert.jsonDecode(response.body);
         return jsonResponse;
       default:
         throw Exception(response.statusCode);

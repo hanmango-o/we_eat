@@ -6,12 +6,14 @@ class ChatRoomTileWidget extends StatelessWidget {
   String title;
   String position;
   String createdTime;
+  Function() onTab;
 
   ChatRoomTileWidget({
     Key? key,
     required this.title,
     required this.position,
     required this.createdTime,
+    required this.onTab,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class ChatRoomTileWidget extends StatelessWidget {
         createdTime,
         style: Theme.of(context).textTheme.headline6,
       ),
+      onTap: onTab,
     );
   }
 }
