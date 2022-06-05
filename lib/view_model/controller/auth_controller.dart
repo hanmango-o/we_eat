@@ -39,8 +39,8 @@ import 'package:we_eat/model/vo/user_vo.dart';
 /// See Also:
 /// - [Getx] https://pub.dev/documentation/get/latest/
 class AuthController extends GetxController {
-  static Auth status = Auth.signOut;
-  static late UserVO info;
+  Auth status = Auth.signOut;
+  UserVO? user;
 
   AuthController get to => Get.find();
 }

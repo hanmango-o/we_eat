@@ -27,7 +27,7 @@ class RestaurantRepository extends HttpImpl {
   /// 요청이 성공할 경우, [Result.success]를 반환합니다.
   ///
   /// 요청이 실패할 경우, [Result.error]를 반환합니다.
-  Future getRestaurants(String url) async {
+  Future<Result> getRestaurants(String url) async {
     try {
       Uri uri = super.getUri(url);
       List<dynamic> temp = await super.get(uri);

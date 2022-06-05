@@ -1,16 +1,16 @@
 class UserVO {
   late String user_id;
   late String? user_name;
-  late int? user_sid;
+  late String? user_sid;
   late String? user_dept;
-  late bool? user_status;
+  late int? user_state;
 
   UserVO({
     required this.user_id,
     this.user_name,
     this.user_sid,
     this.user_dept,
-    this.user_status,
+    this.user_state,
   });
 
   UserVO.fromMap(Map<String, dynamic> map) {
@@ -18,21 +18,21 @@ class UserVO {
     user_name = map['user_name'];
     user_sid = map['user_sid'];
     user_dept = map['user_dept'];
-    user_status = map['user_status'];
+    user_state = map['user_state'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'user_id': user_id,
       'user_name': user_name ?? '',
-      'user_sid': user_sid ?? -1,
+      'user_sid': user_sid ?? '',
       'user_dept': user_dept ?? '',
-      'user_status': user_status ?? false,
+      'user_state': user_state ?? 0,
     };
   }
 
   @override
   String toString() {
-    return '{user_id:$user_id, user_name:$user_name, user_sid:$user_sid, user_dept:$user_dept}';
+    return '{user_id:$user_id, user_name:$user_name, user_sid:$user_sid, user_dept:$user_dept, user_state:$user_state}';
   }
 }

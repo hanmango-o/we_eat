@@ -10,7 +10,7 @@ class ChatRoomRepository extends HttpImpl {
   List<ChatRoomVO> list = [];
   ChatRoomVO? chatRoom;
 
-  Future getChatRooms() async {
+  Future<Result> getChatRooms() async {
     try {
       Uri uri = super.getUri(API.GET_ChatRooms);
       List<dynamic> temp = await super.get(uri);
@@ -24,7 +24,7 @@ class ChatRoomRepository extends HttpImpl {
     return Result.success;
   }
 
-  Future createChatRoom(Object body) async {
+  Future<Result> createChatRoom(Object body) async {
     try {
       Uri uri = super.getUri(API.POST_CreateChatRoom);
       var map = await super.post(uri, body);

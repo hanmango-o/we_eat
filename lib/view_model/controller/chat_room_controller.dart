@@ -37,7 +37,6 @@ class ChatRoomController extends GetxController {
   }
 
   Future getChatRooms() async {
-    log('dd');
     _isLoading.value = true;
     await Future.delayed(Duration(milliseconds: 500));
     ChatRoomRepository _chatRoomRepository = ChatRoomRepository();
@@ -50,6 +49,7 @@ class ChatRoomController extends GetxController {
           update();
           break;
         case Result.error:
+        default:
           Get.snackbar('채팅방 생성 실패', '다시 시도해주세요.');
           break;
       }
@@ -65,6 +65,7 @@ class ChatRoomController extends GetxController {
           log(_chatRoomRepository.chatRoom.toString());
           break;
         case Result.error:
+        default:
           Get.snackbar('채팅방 생성 실패', '다시 시도해주세요.');
           break;
       }

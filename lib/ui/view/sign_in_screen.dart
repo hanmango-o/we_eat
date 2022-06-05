@@ -44,7 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   hintText: '',
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

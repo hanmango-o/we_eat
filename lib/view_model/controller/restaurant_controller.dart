@@ -61,6 +61,7 @@ class RestaurantController extends GetxController {
             update();
             break;
           case Result.error:
+          default:
             Get.snackbar('알 수 없는 에러', '다시 시도해 주세요.');
             break;
         }

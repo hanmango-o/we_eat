@@ -12,8 +12,11 @@ import 'package:we_eat/ui/view/main_screen.dart';
 import 'package:we_eat/ui/view/sign_in_screen.dart';
 import 'package:we_eat/ui/view/sign_up_screen.dart';
 import 'package:we_eat/splash_screen.dart';
+import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 void main() {
+  AuthController _authController = Get.put(AuthController());
+
   runApp(const WeEat());
 }
 
@@ -129,6 +132,30 @@ class WeEat extends StatelessWidget {
             ),
             floatingLabelStyle: TextStyle(
               color: Color(0xFF9561D8),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 198, 198, 198),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 198, 198, 198),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 198, 198, 198),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
             ),
             fillColor: Color(0xFFFFFDFD),
             filled: true,
