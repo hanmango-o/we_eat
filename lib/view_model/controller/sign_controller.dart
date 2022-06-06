@@ -14,8 +14,6 @@ import 'package:we_eat/view_model/controller/auth_controller.dart';
 class SignController extends GetxController {
   Future signIn(Map<String, dynamic> map) async {
     if (map.containsValue(null) ||
-        // key id, pw 는 임시로 해놓은 것, 백엔드 부분이 수정되면 user_id, user_pw로 수정해야 함
-        // 관련 부분 모두 수정해야 함(sign in)
         !map.containsKey('user_id') ||
         !map.containsKey('user_pw')) {
       Get.snackbar('알 수 없는 에러', '다시 시도해주세요.');

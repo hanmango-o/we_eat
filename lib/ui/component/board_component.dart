@@ -11,6 +11,10 @@ class BoardComponent extends StatelessWidget {
   final double? paddingB;
   final double? paddingL;
   final double? paddingR;
+  final double? titlePaddingT;
+  final double? titlePaddingB;
+  final double? titlePaddingL;
+  final double? titlePaddingR;
   const BoardComponent({
     Key? key,
     required this.title,
@@ -21,6 +25,10 @@ class BoardComponent extends StatelessWidget {
     this.paddingB,
     this.paddingL,
     this.paddingR,
+    this.titlePaddingT,
+    this.titlePaddingB,
+    this.titlePaddingL,
+    this.titlePaddingR,
     this.edge,
   }) : super(key: key);
 
@@ -33,7 +41,12 @@ class BoardComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 0.w, left: 0.w, right: 0.w),
+            padding: EdgeInsets.only(
+              top: titlePaddingT ?? 0.w,
+              left: titlePaddingL ?? 0.w,
+              right: titlePaddingR ?? 0.w,
+              bottom: titlePaddingB ?? 0.w,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -60,6 +73,7 @@ class BoardComponent extends StatelessWidget {
           const SizedBox(height: 8.0),
           Padding(
             padding: EdgeInsets.only(
+              top: paddingT ?? 0,
               bottom: paddingB ?? 15.w,
               left: paddingL ?? 15.w,
               right: paddingR ?? 15.w,

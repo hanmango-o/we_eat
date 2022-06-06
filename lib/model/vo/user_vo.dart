@@ -4,6 +4,7 @@ class UserVO {
   late String? user_sid;
   late String? user_dept;
   late int? user_state;
+  bool selected = false;
 
   UserVO({
     required this.user_id,
