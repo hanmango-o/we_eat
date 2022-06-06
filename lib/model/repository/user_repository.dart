@@ -35,4 +35,18 @@ class UserRepository extends HttpImpl {
     }
     return Result.success;
   }
+
+  Future<Result> getFriends(String url) async {
+    try {
+      Uri uri = super.getUri(url);
+      List<dynamic> temp = await super.get(uri);
+      for (var element in temp) {
+        list.add(UserVO.fromMap(element));
+      }
+    } catch (e) {
+      log(e.toString());
+      return Result.error;
+    }
+    return Result.success;
+  }
 }

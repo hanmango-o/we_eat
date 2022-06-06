@@ -21,7 +21,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   TextEditingController name = TextEditingController();
 
   final UserController _userController = Get.put(UserController());
-  final FriendController _friendController = Get.put(FriendController());
+  final FriendController _friendController = Get.find<FriendController>();
 
   int selectedIndex = -1;
 

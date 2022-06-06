@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
@@ -12,6 +14,12 @@ class FriendController extends GetxController {
 
   get list => _list;
   get isLoading => _isLoading.value;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await getFriends();
+  }
 
   Future addFriend(UserVO target) async {
     UserRepository _userRepository = UserRepository();
@@ -32,15 +40,25 @@ class FriendController extends GetxController {
   }
 
   Future getFriends() async {
+    log('dd');
+    _isLoading.value = true;
+    // _list.clear();
+    await Future.delayed(Duration(milliseconds: 500));
+    String url = API.GET_Friends + AuthController.to.user!.user_id;
     UserRepository _userRepository = UserRepository();
-    _userRepository
-        .getFriends(API.GET_Friends + AuthController.to.user!.user_id)
-        .then((result) {
+    await _userRepository.getFriends(url).then((result) {
       switch (result) {
         case Result.success:
+          _list.value = _userRepository.list;
+          _isLoading.value = false;
+          log(_list.toString());
+
+          update();
+
           break;
         case Result.error:
         default:
+          log('d');
           break;
       }
     });

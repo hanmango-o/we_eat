@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +9,9 @@ import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/widget/friend_tile_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
+import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/sign_controller.dart';
+import 'package:we_eat/view_model/controller/user_controller.dart';
 import 'package:web_socket_channel/io.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +22,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final SignController _signController = SignController();
+  final SignController _signController = Get.put(SignController());
+  // final UserController _userController = UserController();
+  final FriendController _friendController = Get.put(FriendController());
 
   List<Map<String, dynamic>> _friendList = [
     {'name': '영희', 'status': true},
@@ -195,6 +201,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _friendController.getFriends();
+                },
+                child: Text('dd'),
+              ),
               SizedBox(height: 30),
               BoardComponent(
                 title: '친구 목록',
@@ -223,16 +235,84 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                child: Column(
-                  children: _friendList
-                      .map(
-                        (e) => FriendTileWidget(
-                          name: e['name'],
-                          status: e['status'],
-                        ),
-                      )
-                      .toList(),
+                child: Obx(
+                  () {
+                    if (!_friendController.isLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      log(_friendController.list.toString());
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _friendController.list.length,
+                        itemBuilder: ((context, index) => FriendTileWidget(
+                              name: _friendController.list[index].user_name,
+                              status: _friendController.list[index].user_state,
+                            )),
+                      );
+                    }
+                  },
                 ),
+                // child: Obx(() {
+                //   if (_friendController.isLoading) {
+                //     return Center(child: CircularProgressIndicator());
+                //   } else {
+                //     return Column(
+                //       children: _friendController.list
+                //           .map(
+                //             (e) => FriendTileWidget(
+                //               name: e.user_name,
+                //               status: e.user_state,
+                //             ),
+                //           )
+                //           .toList(),
+                //     );
+                //   }
+                // }),
+
+                // child: Column(
+                //   children: Obx(
+                //     () {
+                //       if (_userController.isLoading) {
+                //         return Center(child: CircularProgressIndicator());
+                //       } else {
+                //         return [];
+                //         // return ListView.builder(
+                //         //   itemCount: _userController.list.length,
+                //         //   itemBuilder: ((context, index) => ListTile(
+                //         //         onTap: () {
+                //         //           setState(() {
+                //         //             if (selectedIndex != -1) {
+                //         //               _restaurantController
+                //         //                   .list[selectedIndex].selected = false;
+                //         //             }
+                //         //             _restaurantController.list[index].selected =
+                //         //                 true;
+                //         //             selectedIndex = index;
+                //         //           });
+                //         //         },
+                //         //         selected:
+                //         //             _restaurantController.list[index].selected,
+                //         //         selectedColor: Theme.of(context).primaryColor,
+                //         //         title: Text(
+                //         //           _restaurantController.list[index].place_name,
+                //         //         ),
+                //         //         subtitle: Text(
+                //         //           _restaurantController
+                //         //               .list[index].address_name,
+                //         //         ),
+                //         //         trailing: _restaurantController
+                //         //                 .list[index].selected
+                //         //             ? Icon(
+                //         //                 Icons.check,
+                //         //                 color: Theme.of(context).primaryColor,
+                //         //               )
+                //         //             : null,
+                //         //       )),
+                //         // );
+                //       }
+                //     },
+                //   ),
+                // ),
               ),
             ],
           ),
