@@ -42,5 +42,15 @@ class AuthController extends GetxController {
   Auth status = Auth.signOut;
   UserVO? user;
 
-  AuthController get to => Get.find();
+  static AuthController get to => Get.find();
+
+  void signIn(UserVO user) {
+    this.user = user;
+    status = Auth.signIn;
+  }
+
+  void signOut() {
+    user = null;
+    status = Auth.signOut;
+  }
 }

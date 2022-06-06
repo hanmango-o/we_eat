@@ -15,7 +15,7 @@ import 'package:we_eat/splash_screen.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 void main() {
-  AuthController _authController = Get.put(AuthController());
+  Get.put(AuthController());
 
   runApp(const WeEat());
 }

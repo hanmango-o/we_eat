@@ -15,7 +15,6 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
         title: Text('친구 추가'),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: Container(),
     );
   }
 }

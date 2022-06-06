@@ -248,8 +248,8 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 child: Text('채팅방 생성'),
                 onPressed: () async {
                   await _chatRoomController.createChatRoom({
-                    "chat_name": "chatroom2",
-                    "chat_restaurant": "chicken",
+                    "chat_name": "치킨드실분~",
+                    "chat_restaurant": "굽네치킨 역곡점",
                     "userIdList": [
                       {"user_id": "minji"},
                       {"user_id": "chulsu"},

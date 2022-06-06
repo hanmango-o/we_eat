@@ -6,6 +6,8 @@ import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/widget/friend_tile_widget.dart';
+import 'package:we_eat/view_model/controller/auth_controller.dart';
+import 'package:we_eat/view_model/controller/sign_controller.dart';
 import 'package:web_socket_channel/io.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final SignController _signController = SignController();
+
   List<Map<String, dynamic>> _friendList = [
     {'name': '영희', 'status': true},
     {'name': '바둑이', 'status': true},
@@ -60,23 +64,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '김철수',
+                            AuthController.to.user!.user_name ?? '',
                             style: Theme.of(context).textTheme.headline4,
                           ),
                           SizedBox(height: 10),
                           Text(
-                            '201821284',
+                            AuthController.to.user!.user_sid ?? '',
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
-                            '컴퓨터정보공학부',
+                            AuthController.to.user!.user_dept ?? '',
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),
                     ),
                     IconButton(
-                      onPressed: () => Get.offAllNamed(Service.SIGN_IN_ROUTE),
+                      onPressed: () async {
+                        await _signController.signOut();
+                      },
                       icon: Icon(
                         Icons.logout,
                         size: 30,

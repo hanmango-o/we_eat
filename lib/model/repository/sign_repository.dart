@@ -8,6 +8,20 @@ import 'package:we_eat/model/vo/user_vo.dart';
 class SignRepository extends HttpImpl {
   UserVO? user;
 
+  Future<Result> signIn(Object body) async {
+    try {
+      Uri uri = super.getUri(API.POST_SignIn);
+      Map<String, dynamic> temp = await super.post(uri, body);
+      if (temp.containsValue(null)) {
+        return Result.denied;
+      }
+      user = UserVO.fromMap(temp);
+    } catch (e) {
+      return Result.error;
+    }
+    return Result.success;
+  }
+
   Future<Result> signUp(Object body) async {
     try {
       Uri uri = super.getUri(API.POST_SignUp);
@@ -16,6 +30,21 @@ class SignRepository extends HttpImpl {
         return Result.already_exist;
       }
       user = UserVO.fromMap(temp);
+    } catch (e) {
+      return Result.error;
+    }
+    return Result.success;
+  }
+
+  Future<Result> signOut(String url) async {
+    try {
+      Uri uri = super.getUri(url);
+      var result = await super.get(uri);
+      log(result.toString());
+      log(result.runtimeType.toString());
+      if (result == 0) {
+        return Result.error;
+      }
     } catch (e) {
       return Result.error;
     }

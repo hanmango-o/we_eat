@@ -3,6 +3,7 @@ import 'package:we_eat/asset/data/schinfo.dart';
 import 'package:we_eat/asset/status/validate.dart';
 
 class ValidateController extends GetxController {
+  // sign up
   String? inputID;
   String? inputPW;
   String? inputName;
@@ -13,6 +14,13 @@ class ValidateController extends GetxController {
   bool isPWValidated = false;
   bool isNameValidated = false;
   bool isSIDValidated = false;
+
+  // sign in
+  String? id;
+  String? pw;
+
+  bool isSignInIDValidated = false;
+  bool isSignInPWValidated = false;
 
   Validate validatePW(String pw) {
     if (pw.contains(RegExp(r'[\s]'))) {
@@ -56,12 +64,7 @@ class ValidateController extends GetxController {
         !name.contains(RegExp(r'^[a-zA-Z0-9가-힣]+$'))) {
       return Validate.uncompliteWord;
     }
-    if (name == 'admin' ||
-        name == 'root' ||
-        name == '관리자' ||
-        name == '운영자' ||
-        name == 'MsSQL' ||
-        name == 'MySQL') {
+    if (name == 'admin' || name == 'root' || name == '관리자' || name == '운영자') {
       return Validate.error;
     }
     if (name.length < 2) {
@@ -96,4 +99,9 @@ class ValidateController extends GetxController {
     }
     return Validate.error;
   }
+
+  bool checkSignUpValidated() =>
+      isIDValidated && isPWValidated && isNameValidated && isSIDValidated;
+
+  bool checkSignInValidated() => isSignInIDValidated && isSignInPWValidated;
 }

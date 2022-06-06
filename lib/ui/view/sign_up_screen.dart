@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               validator: (val) {
                 _validateController.isIDValidated = false;
                 if (val == null || val.isEmpty || val != id.text) {
-                  return '이메일을 입력하세요.';
+                  return '아이디를 입력하세요.';
                 } else {
                   switch (_validateController.validateID(val)) {
                     case Validate.pass:
@@ -332,18 +332,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: ElevatedButton(
                 child: Text('회원가입'),
                 onPressed: () async {
-                  if (_validateController.isIDValidated &&
-                      _validateController.isPWValidated &&
-                      _validateController.isNameValidated &&
-                      _validateController.isSIDValidated) {
-                    Map<String, dynamic> input = {
+                  if (_validateController.checkSignUpValidated()) {
+                    await _signController.signUp({
                       'user_id': _validateController.inputID,
                       'user_pw': _validateController.inputPW,
                       'user_name': _validateController.inputName,
                       'user_sid': _validateController.inputSID,
                       'user_dept': _validateController.inputDept,
-                    };
-                    await _signController.signUp(input);
+                    });
                   } else {
                     if (!_validateController.isIDValidated) {
                       Get.snackbar('회원가입 실패', '아이디를 입력해주세요.');
@@ -358,7 +354,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                   }
 
-                  log(AuthController().to.user.toString());
+                  log(AuthController.to.user.toString());
                 },
               ),
             ),
