@@ -71,4 +71,6 @@ class ChatRoomController extends GetxController {
       }
     });
   }
+
+  Future getMyChatRooms() async {}
 }

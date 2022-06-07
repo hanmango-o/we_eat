@@ -54,7 +54,7 @@ class UserController extends GetxController {
 
   Future getProfile(UserVO user) async {
     _isProfileLoading.value = true;
-    String url = API.GET_profile + user.user_id;
+    String url = API.GET_Profile + user.user_id;
     UserRepository _userRepository = UserRepository();
     _userRepository.getProfile(url).then((result) {
       switch (result) {

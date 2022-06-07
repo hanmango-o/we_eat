@@ -11,9 +11,20 @@ import 'package:we_eat/view_model/controller/auth_controller.dart';
 class FriendController extends GetxController {
   final RxList<UserVO> _list = <UserVO>[].obs;
   final RxBool _isLoading = false.obs;
+  RxList selectedFriends = [].obs;
 
   get list => _list;
   get isLoading => _isLoading.value;
+  List<Map> selectedFriendsOnlyId() {
+    List<Map> list = [
+      {'id': AuthController.to.user!.user_id}
+    ];
+    for (UserVO element in selectedFriends) {
+      list.add({'id': element.user_id});
+    }
+    log(list.toString());
+    return list;
+  }
 
   @override
   void onInit() async {
@@ -40,7 +51,6 @@ class FriendController extends GetxController {
   }
 
   Future getFriends() async {
-    log('dd');
     _isLoading.value = true;
     _list.clear();
     String url = API.GET_Friends + AuthController.to.user!.user_id;
@@ -50,7 +60,6 @@ class FriendController extends GetxController {
         case Result.success:
           _list.value = _userRepository.list;
           _isLoading.value = false;
-          log(_list.toString());
           update();
           break;
         case Result.error:

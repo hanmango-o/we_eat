@@ -30,6 +30,7 @@ class ChatRoomRepository extends HttpImpl {
       var map = await super.post(uri, body);
       chatRoom = ChatRoomVO.fromMap(map);
     } catch (e) {
+      print(e);
       return Result.error;
     }
     return Result.success;

@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/model/repository/impl/http_impl.dart';
+import 'package:we_eat/model/vo/user_vo.dart';
+import 'package:we_eat/ui/component/board_component.dart';
+import 'package:we_eat/ui/widget/profile_tile_md_widget.dart';
+import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
+import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/restaurant_controller.dart';
 
 class CreateChatRoomScreen extends StatefulWidget {
@@ -20,8 +25,9 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
   final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
   final RestaurantController _restaurantController =
       Get.put(RestaurantController());
-
+  final FriendController _friendController = Get.find<FriendController>();
   int selectedIndex = -1;
+  List<int> selectedFriends = [];
 
   @override
   Widget build(BuildContext context) {
@@ -197,76 +203,141 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                       child: Icon(Icons.add),
                     ),
                     color: Colors.white,
-                    onPressed: () => Get.bottomSheet(
-                      Container(
-                        height: 780.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ),
+                    onPressed: () async {
+                      await _friendController.getFriends();
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                        builder: (context) => SizedBox(
+                          height: 780.h,
+                          child: StatefulBuilder(builder: (context, setState) {
+                            selectedFriends = [];
+                            return BoardComponent(
+                              titlePaddingT: 40.h,
+                              titlePaddingL: 15.w,
+                              paddingT: 20.h,
+                              title: '친구 추가',
+                              subTitle: '함께하고 싶은 친구를 선택하세요.',
+                              child: Column(
                                 children: [
-                                  Text(
-                                    '친구 추가',
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                  Obx(
+                                    () {
+                                      if (_friendController.isLoading) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      } else {
+                                        List<int> selectedList = [];
+                                        return SizedBox(
+                                          height: 550,
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount:
+                                                _friendController.list.length,
+                                            itemBuilder: ((context, index) =>
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Checkbox(
+                                                      value: _friendController
+                                                          .list[index].selected,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          _friendController
+                                                              .list[index]
+                                                              .selected = value;
+                                                        });
+                                                      },
+                                                    ),
+                                                    SizedBox(
+                                                      width: 300.w,
+                                                      child: ProfileTile_md(
+                                                        name: _friendController
+                                                            .list[index]
+                                                            .user_name,
+                                                        status:
+                                                            _friendController
+                                                                .list[index]
+                                                                .user_state,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ),
+                                        );
+                                      }
+                                    },
                                   ),
-                                  IconButton(
-                                    onPressed: () => Get.back(),
-                                    icon: Icon(Icons.close),
+                                  SizedBox(height: 25),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      List selectedList = [];
+                                      for (int i = 0;
+                                          i < _friendController.list.length;
+                                          i++) {
+                                        if (_friendController
+                                            .list[i].selected) {
+                                          selectedList
+                                              .add(_friendController.list[i]);
+                                        }
+                                      }
+                                      log(selectedList.toString());
+                                      _friendController.selectedFriends.value =
+                                          selectedList;
+                                      setState;
+                                      Get.back();
+                                    },
+                                    child: Text('친구 추가'),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
+                            );
+                          }),
                         ),
-                      ),
-                      isScrollControlled: true,
-                    ),
+                      );
+                    },
                   )
                 ],
               ),
             ),
-            Container(
-              height: 50.h,
-              width: double.infinity,
-              color: Colors.grey[300],
-              child: Center(child: Text('함께할 친구를 추가하세요.')),
-            ),
+            Obx(() {
+              if (_friendController.selectedFriends.isEmpty) {
+                return Container(
+                  height: 50.h,
+                  width: double.infinity,
+                  color: Colors.grey[300],
+                  child: Center(child: Text('함께할 친구를 선택하세요.')),
+                );
+              }
+              return Column(
+                children: _friendController.selectedFriends
+                    .map(
+                      (e) => ProfileTile_md(
+                          name: e.user_name, status: e.user_state),
+                    )
+                    .toList(),
+              );
+            }),
             SizedBox(height: 20),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
                 child: Text('채팅방 생성'),
                 onPressed: () async {
-                  await _chatRoomController.createChatRoom({
-                    "chat_name": "치킨드실분~",
-                    "chat_restaurant": "굽네치킨 역곡점",
-                    "userIdList": [
-                      {"user_id": "minji"},
-                      {"user_id": "chulsu"},
-                      {"user_id": "gihyun"}
-                    ]
-                  });
-                  // Uri uri =
-                  //     HttpImpl().getUri('http://localhost:8080/chat/create');
-                  // var temp = await HttpImpl().post(uri, {
-                  //   "chat_name": "chatroom2",
-                  //   "chat_restaurant": "chicken",
-                  //   "userIdList": [
-                  //     {"user_id": "minji"},
-                  //     {"user_id": "chulsu"},
-                  //     {"user_id": "gihyun"}
-                  //   ]
-                  // });
+                  if (title.text.isEmpty || selectedIndex == -1) {
+                    Get.snackbar('채팅방을 생성할 수 없습니다.', '채팅방 정보를 입력해주세요.');
+                  } else {
+                    await _chatRoomController.createChatRoom({
+                      "chat_name": title.text,
+                      "chat_restaurant":
+                          _restaurantController.list[selectedIndex].place_name,
+                      "user_id": _friendController.selectedFriendsOnlyId()
+                    });
+                  }
                 },
               ),
             ),

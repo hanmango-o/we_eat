@@ -28,15 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final UserController _userController = Get.put(UserController());
   final FriendController _friendController = Get.put(FriendController());
 
-  List<Map<String, dynamic>> _friendList = [
-    {'name': '영희', 'status': true},
-    {'name': '바둑이', 'status': true},
-    {'name': '고릴라', 'status': false},
-    {'name': '퉁퉁이', 'status': false},
-    {'name': '스티븐', 'status': true},
-    {'name': '팀쿡', 'status': false},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
