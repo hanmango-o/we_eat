@@ -42,8 +42,7 @@ class FriendController extends GetxController {
   Future getFriends() async {
     log('dd');
     _isLoading.value = true;
-    // _list.clear();
-    await Future.delayed(Duration(milliseconds: 500));
+    _list.clear();
     String url = API.GET_Friends + AuthController.to.user!.user_id;
     UserRepository _userRepository = UserRepository();
     await _userRepository.getFriends(url).then((result) {
@@ -52,9 +51,7 @@ class FriendController extends GetxController {
           _list.value = _userRepository.list;
           _isLoading.value = false;
           log(_list.toString());
-
           update();
-
           break;
         case Result.error:
         default:

@@ -94,7 +94,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 height: 400.h,
                 child: Obx(
                   () {
-                    if (_userController.isLoading) {
+                    if (_userController.isUsersLoading) {
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return ListView.builder(

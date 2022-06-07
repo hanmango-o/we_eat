@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final SignController _signController = Get.put(SignController());
-  // final UserController _userController = UserController();
+  final UserController _userController = Get.put(UserController());
   final FriendController _friendController = Get.put(FriendController());
 
   List<Map<String, dynamic>> _friendList = [
@@ -201,12 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  await _friendController.getFriends();
-                },
-                child: Text('dd'),
-              ),
               SizedBox(height: 30),
               BoardComponent(
                 title: '친구 목록',
@@ -237,82 +231,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Obx(
                   () {
-                    if (!_friendController.isLoading) {
+                    if (_friendController.isLoading) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      log(_friendController.list.toString());
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: _friendController.list.length,
                         itemBuilder: ((context, index) => FriendTileWidget(
                               name: _friendController.list[index].user_name,
                               status: _friendController.list[index].user_state,
+                              onTap: () async {
+                                await _userController
+                                    .getProfile(_friendController.list[index]);
+                              },
                             )),
                       );
                     }
                   },
                 ),
-                // child: Obx(() {
-                //   if (_friendController.isLoading) {
-                //     return Center(child: CircularProgressIndicator());
-                //   } else {
-                //     return Column(
-                //       children: _friendController.list
-                //           .map(
-                //             (e) => FriendTileWidget(
-                //               name: e.user_name,
-                //               status: e.user_state,
-                //             ),
-                //           )
-                //           .toList(),
-                //     );
-                //   }
-                // }),
-
-                // child: Column(
-                //   children: Obx(
-                //     () {
-                //       if (_userController.isLoading) {
-                //         return Center(child: CircularProgressIndicator());
-                //       } else {
-                //         return [];
-                //         // return ListView.builder(
-                //         //   itemCount: _userController.list.length,
-                //         //   itemBuilder: ((context, index) => ListTile(
-                //         //         onTap: () {
-                //         //           setState(() {
-                //         //             if (selectedIndex != -1) {
-                //         //               _restaurantController
-                //         //                   .list[selectedIndex].selected = false;
-                //         //             }
-                //         //             _restaurantController.list[index].selected =
-                //         //                 true;
-                //         //             selectedIndex = index;
-                //         //           });
-                //         //         },
-                //         //         selected:
-                //         //             _restaurantController.list[index].selected,
-                //         //         selectedColor: Theme.of(context).primaryColor,
-                //         //         title: Text(
-                //         //           _restaurantController.list[index].place_name,
-                //         //         ),
-                //         //         subtitle: Text(
-                //         //           _restaurantController
-                //         //               .list[index].address_name,
-                //         //         ),
-                //         //         trailing: _restaurantController
-                //         //                 .list[index].selected
-                //         //             ? Icon(
-                //         //                 Icons.check,
-                //         //                 color: Theme.of(context).primaryColor,
-                //         //               )
-                //         //             : null,
-                //         //       )),
-                //         // );
-                //       }
-                //     },
-                //   ),
-                // ),
               ),
             ],
           ),

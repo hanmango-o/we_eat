@@ -7,6 +7,7 @@ import 'package:we_eat/model/vo/user_vo.dart';
 
 class UserRepository extends HttpImpl {
   List<UserVO> list = [];
+  late UserVO profile;
 
   Future<Result> getUsers(String url) async {
     try {
@@ -25,12 +26,10 @@ class UserRepository extends HttpImpl {
     try {
       Uri uri = super.getUri(API.POST_AddFriend);
       var response = await super.post(uri, body);
-      print(response);
       if (response == 0) {
         return Result.error;
       }
     } catch (e) {
-      print(e);
       return Result.error;
     }
     return Result.success;
@@ -44,7 +43,20 @@ class UserRepository extends HttpImpl {
         list.add(UserVO.fromMap(element));
       }
     } catch (e) {
-      log(e.toString());
+      return Result.error;
+    }
+    return Result.success;
+  }
+
+  Future<Result> getProfile(String url) async {
+    try {
+      Uri uri = super.getUri(url);
+      var temp = await super.get(uri);
+      profile = UserVO.fromMap(temp);
+      log(temp.toString());
+      log(temp.runtimeType.toString());
+    } catch (e) {
+      print(e);
       return Result.error;
     }
     return Result.success;

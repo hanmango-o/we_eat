@@ -10,14 +10,18 @@ import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 class UserController extends GetxController {
   final RxList<UserVO> _list = <UserVO>[].obs;
-  final RxBool _isLoading = false.obs;
+  Object _profile = Object().obs;
+  final RxBool _isUsersLoading = false.obs;
+  final RxBool _isProfileLoading = false.obs;
 
   get list => _list;
-  get isLoading => _isLoading.value;
+  get profile => _profile;
+  get isUsersLoading => _isUsersLoading.value;
+  get isProfileLoading => _isProfileLoading.value;
 
   Future getUsers(String? name) async {
     if (name != null) {
-      _isLoading.value = true;
+      _isUsersLoading.value = true;
       _list.clear();
       String url = API.GET_SearchUsers + name;
 
@@ -29,7 +33,7 @@ class UserController extends GetxController {
             _list.removeWhere(
               (user) => user.user_id == AuthController.to.user!.user_id,
             );
-            _isLoading.value = false;
+            _isUsersLoading.value = false;
             update();
             break;
           case Result.error:
@@ -39,5 +43,23 @@ class UserController extends GetxController {
         }
       });
     }
+  }
+
+  Future getProfile(UserVO user) async {
+    _isProfileLoading.value = true;
+    String url = API.GET_profile + user.user_id;
+    UserRepository _userRepository = UserRepository();
+    _userRepository.getProfile(url).then((result) {
+      switch (result) {
+        case Result.success:
+          _profile = _userRepository.profile;
+          _isProfileLoading.value = false;
+          update();
+          break;
+        case Result.error:
+        default:
+          break;
+      }
+    });
   }
 }

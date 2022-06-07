@@ -7,6 +7,7 @@ class API {
   static const String GET_SignOut = _ADDRESS + 'sign/out?id=';
   static const String GET_SearchUsers = _ADDRESS + 'user/search?user_name=';
   static const String GET_Friends = _ADDRESS + 'user/friend?user_id=';
+  static const String GET_profile = _ADDRESS + 'user/profile?user_id=';
 
   static const String POST_CreateChatRoom = _ADDRESS + 'chat/create';
   static const String POST_SignUp = _ADDRESS + 'sign/up';
