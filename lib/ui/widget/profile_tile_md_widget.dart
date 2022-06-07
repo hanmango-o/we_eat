@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FriendTileWidget extends StatelessWidget {
+class ProfileTile_md extends StatelessWidget {
   String name;
   int status;
   Function()? onTap;
-  FriendTileWidget({
+  ProfileTile_md({
     Key? key,
     required this.name,
     required this.status,

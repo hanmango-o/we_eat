@@ -53,10 +53,7 @@ class UserRepository extends HttpImpl {
       Uri uri = super.getUri(url);
       var temp = await super.get(uri);
       profile = UserVO.fromMap(temp);
-      log(temp.toString());
-      log(temp.runtimeType.toString());
     } catch (e) {
-      print(e);
       return Result.error;
     }
     return Result.success;

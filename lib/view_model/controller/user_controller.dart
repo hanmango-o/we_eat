@@ -1,11 +1,16 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
+import 'package:we_eat/asset/data/font.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/user_repository.dart';
 import 'package:we_eat/model/vo/user_vo.dart';
+import 'package:we_eat/ui/component/board_component.dart';
+import 'package:we_eat/ui/widget/profile_tile_lg_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 class UserController extends GetxController {
@@ -18,6 +23,8 @@ class UserController extends GetxController {
   get profile => _profile;
   get isUsersLoading => _isUsersLoading.value;
   get isProfileLoading => _isProfileLoading.value;
+
+  void clearList() => _list.clear();
 
   Future getUsers(String? name) async {
     if (name != null) {
@@ -54,6 +61,29 @@ class UserController extends GetxController {
         case Result.success:
           _profile = _userRepository.profile;
           _isProfileLoading.value = false;
+          Get.bottomSheet(
+            Container(
+              height: 260.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(35.sp),
+                ),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+              child: BoardComponent(
+                title: '프로필 확인',
+                paddingT: 15.h,
+                paddingR: 0,
+                paddingL: 0,
+                child: ProfileTile_lg(
+                  user: _profile as UserVO,
+                  backgroundColor: Colors.grey[200],
+                  avatarBackgroundColor: Color.fromARGB(255, 170, 170, 170),
+                ),
+              ),
+            ),
+          );
           update();
           break;
         case Result.error:

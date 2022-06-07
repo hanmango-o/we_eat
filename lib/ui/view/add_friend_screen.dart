@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:we_eat/asset/data/api.dart';
-import 'package:we_eat/model/repository/impl/http_impl.dart';
+import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/user_controller.dart';
@@ -26,11 +25,24 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   int selectedIndex = -1;
 
   @override
+  void initState() {
+    super.initState();
+    _userController.clearList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('친구 추가'),
         iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(CupertinoIcons.back),
+          onPressed: () async {
+            await _friendController.getFriends();
+            Get.back();
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -115,6 +115,7 @@ class SignController extends GetxController {
             break;
           case Result.error:
           default:
+            Get.back();
             Get.snackbar('로그아웃 실패', '다시 시도해주세요.');
             break;
         }
