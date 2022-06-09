@@ -1,34 +1,38 @@
 class ChatVO {
   late String type;
-  late String roomId;
-  late String sender;
-  late String? message;
+  late int chat_id;
+  late String user_id;
+  late String user_name;
+  late String message;
 
   ChatVO({
     required this.type,
-    required this.roomId,
-    required this.sender,
-    this.message,
+    required this.chat_id,
+    required this.user_id,
+    required this.user_name,
+    required this.message,
   });
 
   ChatVO.fromMap(Map<String, dynamic> map) {
     type = map['type'];
-    roomId = map['roomId'];
-    sender = map['sender'];
+    chat_id = map['chat_id'];
+    user_id = map['user_id'];
+    user_name = map['user_name'];
     message = map['message'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'type': type,
-      'roomId': roomId,
-      'sender': sender,
-      'message': message ?? '',
+      'chat_id': chat_id,
+      'user_id': user_id,
+      'user_name': user_name,
+      'message': message,
     };
   }
 
   @override
   String toString() {
-    return '{type:$type, roomId:$roomId, sender:$sender, message:$message}';
+    return '{type:$type, chat_id:$chat_id, user_id:$user_id, user_name,:$user_name, message:$message}';
   }
 }

@@ -36,7 +36,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
         },
         child: Obx(
           () {
-            if (_chatRoomController.isLoading) {
+            if (_chatRoomController.isGetChatRoomsLoading) {
               return Center(child: CircularProgressIndicator());
             } else {
               return ListView.builder(
@@ -47,36 +47,19 @@ class _ChatListScreenState extends State<ChatListScreen> {
                       position: _chatRoomController.list[index].chat_restaurant,
                       createdTime:
                           _chatRoomController.list[index].chat_create_time,
-                      onTab: () => Get.to(
-                        ChatRoomScreen(
-                          title: '아아아ㅏ',
-                          uri: Uri.parse('ws://localhost:8080/ws/chat'),
-                        ),
-                      ),
+                      onTab: () {
+                        Get.to(
+                          () => ChatRoomScreen(
+                            chatRoom: _chatRoomController.list[index],
+                          ),
+                        );
+                      },
                     )),
               );
             }
           },
         ),
       ),
-      // body: Center(
-      //   child: ElevatedButton(
-      //     onPressed: () async {
-      //       await _chatRoomController.getChatRooms();
-      //       log(_chatRoomController.list.toString());
-      //     },
-      //     child: Text('전체 채팅방 보기'),
-      //   ),
-      // ),
-      // body: ListView.builder(
-      //   padding: EdgeInsets.symmetric(horizontal: 20.w),
-      //   itemCount: _chatList.length,
-      //   itemBuilder: (context, index) => ChatRoomTileWidget(
-      //     title: _chatList[index]['title'],
-      //     position: _chatList[index]['position'],
-      //     createdTime: _chatList[index]['createdTime'],
-      //   ),
-      // ),
     );
   }
 }

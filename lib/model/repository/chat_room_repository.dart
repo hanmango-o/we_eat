@@ -8,6 +8,7 @@ import 'package:we_eat/model/vo/restaurant_vo.dart';
 
 class ChatRoomRepository extends HttpImpl {
   List<ChatRoomVO> list = [];
+  List<ChatRoomVO> m_list = [];
   ChatRoomVO? chatRoom;
 
   Future<Result> getChatRooms() async {
@@ -17,6 +18,20 @@ class ChatRoomRepository extends HttpImpl {
 
       for (var element in temp) {
         list.add(ChatRoomVO.fromMap(element));
+      }
+    } catch (e) {
+      return Result.error;
+    }
+    return Result.success;
+  }
+
+  Future<Result> getMyChatRooms(String url) async {
+    try {
+      Uri uri = super.getUri(url);
+      List<dynamic> temp = await super.get(uri);
+
+      for (var element in temp) {
+        m_list.add(ChatRoomVO.fromMap(element));
       }
     } catch (e) {
       return Result.error;

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/model/repository/impl/http_impl.dart';
+import 'package:we_eat/model/vo/chat_room_vo.dart';
 import 'package:we_eat/model/vo/user_vo.dart';
 import 'package:we_eat/ui/component/board_component.dart';
+import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/widget/profile_tile_md_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
@@ -27,7 +29,6 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
       Get.put(RestaurantController());
   final FriendController _friendController = Get.find<FriendController>();
   int selectedIndex = -1;
-  List<int> selectedFriends = [];
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +215,6 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                         builder: (context) => SizedBox(
                           height: 780.h,
                           child: StatefulBuilder(builder: (context, setState) {
-                            selectedFriends = [];
                             return BoardComponent(
                               titlePaddingT: 40.h,
                               titlePaddingL: 15.w,
@@ -316,8 +316,11 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               return Column(
                 children: _friendController.selectedFriends
                     .map(
-                      (e) => ProfileTile_md(
-                          name: e.user_name, status: e.user_state),
+                      (e) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.w),
+                        child: ProfileTile_md(
+                            name: e.user_name, status: e.user_state),
+                      ),
                     )
                     .toList(),
               );
@@ -341,6 +344,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 },
               ),
             ),
+            SizedBox(height: 50),
           ],
         ),
       ),
