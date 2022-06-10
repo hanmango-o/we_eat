@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/view/chat_room_screen.dart';
-import 'package:we_eat/ui/view/create_chat_room.dart';
 import 'package:we_eat/ui/widget/chat_room_tile_widget.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
 
@@ -23,11 +20,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('chat'),
+        title: const Text('chat'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Service.CREATE_CHAT_ROOM_ROUTE),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(
         color: Theme.of(context).primaryColor,
@@ -37,7 +34,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
         child: Obx(
           () {
             if (_chatRoomController.isGetChatRoomsLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else {
               return ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class UserVO {
   late String user_id;
   late String? user_name;

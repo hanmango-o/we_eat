@@ -3,13 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:we_eat/model/repository/impl/http_impl.dart';
-import 'package:we_eat/model/vo/chat_room_vo.dart';
-import 'package:we_eat/model/vo/user_vo.dart';
 import 'package:we_eat/ui/component/board_component.dart';
-import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/widget/profile_tile_md_widget.dart';
-import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
 import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/restaurant_controller.dart';
@@ -34,11 +29,11 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('채팅방 생성'),
+        title: const Text('채팅방 생성'),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () => Get.back(),
           )
@@ -48,9 +43,9 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 '채팅방 이름',
                 style: Theme.of(context).textTheme.headline4,
@@ -84,9 +79,9 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 '음식점 선택',
                 style: Theme.of(context).textTheme.headline4,
@@ -126,7 +121,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               ),
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border.symmetric(
                   horizontal: BorderSide(
                     color: Color.fromARGB(255, 198, 198, 198),
@@ -139,7 +134,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
               child: Obx(
                 () {
                   if (_restaurantController.isLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else {
                     return ListView.builder(
                       itemCount: _restaurantController.list.length,
@@ -176,9 +171,9 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -188,7 +183,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                         '친구 추가',
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         'option',
                         style: Theme.of(context).textTheme.headline6,
@@ -201,7 +196,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                         color: Theme.of(context).primaryColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.add),
+                      child: const Icon(Icons.add),
                     ),
                     color: Colors.white,
                     onPressed: () async {
@@ -226,11 +221,10 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                                   Obx(
                                     () {
                                       if (_friendController.isLoading) {
-                                        return Center(
+                                        return const Center(
                                           child: CircularProgressIndicator(),
                                         );
                                       } else {
-                                        List<int> selectedList = [];
                                         return SizedBox(
                                           height: 550,
                                           child: ListView.builder(
@@ -272,7 +266,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                                       }
                                     },
                                   ),
-                                  SizedBox(height: 25),
+                                  const SizedBox(height: 25),
                                   ElevatedButton(
                                     onPressed: () {
                                       List selectedList = [];
@@ -291,7 +285,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                                       setState;
                                       Get.back();
                                     },
-                                    child: Text('친구 추가'),
+                                    child: const Text('친구 추가'),
                                   ),
                                 ],
                               ),
@@ -310,7 +304,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                   height: 50.h,
                   width: double.infinity,
                   color: Colors.grey[300],
-                  child: Center(child: Text('함께할 친구를 선택하세요.')),
+                  child: const Center(child: Text('함께할 친구를 선택하세요.')),
                 );
               }
               return Column(
@@ -325,11 +319,11 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                     .toList(),
               );
             }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                child: Text('채팅방 생성'),
+                child: const Text('채팅방 생성'),
                 onPressed: () async {
                   if (title.text.isEmpty || selectedIndex == -1) {
                     Get.snackbar('채팅방을 생성할 수 없습니다.', '채팅방 정보를 입력해주세요.');
@@ -344,7 +338,7 @@ class _CreateChatRoomScreenState extends State<CreateChatRoomScreen> {
                 },
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
           ],
         ),
       ),

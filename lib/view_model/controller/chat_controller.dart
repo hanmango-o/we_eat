@@ -1,13 +1,10 @@
-import 'dart:developer';
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
-import 'package:we_eat/asset/status/chat.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/chat_repository.dart';
 import 'package:we_eat/model/vo/chat_vo.dart';
-import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatController extends GetxController {

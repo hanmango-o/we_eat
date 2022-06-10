@@ -1,12 +1,9 @@
-import 'dart:developer';
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
-import 'package:we_eat/asset/data/font.dart';
-import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/user_repository.dart';
 import 'package:we_eat/model/vo/user_vo.dart';
@@ -55,7 +52,7 @@ class UserController extends GetxController {
   Future getProfile(String user_id) async {
     String url = API.GET_Profile + user_id;
     UserRepository _userRepository = UserRepository();
-    Get.dialog(Center(child: CircularProgressIndicator()));
+    Get.dialog(const Center(child: CircularProgressIndicator()));
     _userRepository.getProfile(url).then((result) {
       switch (result) {
         case Result.success:
@@ -81,7 +78,7 @@ class UserController extends GetxController {
                     ? ProfileTile_lg(
                         user: _profile as UserVO,
                         bottomChild: ElevatedButton(
-                          child: Text('친구 추가'),
+                          child: const Text('친구 추가'),
                           onPressed: () async {
                             await FriendController().addFriend(user_id);
                             Get.back();
@@ -92,7 +89,7 @@ class UserController extends GetxController {
                         user: _profile as UserVO,
                         backgroundColor: Colors.grey[200],
                         avatarBackgroundColor:
-                            Color.fromARGB(255, 170, 170, 170),
+                            const Color.fromARGB(255, 170, 170, 170),
                       ),
               ),
             ),

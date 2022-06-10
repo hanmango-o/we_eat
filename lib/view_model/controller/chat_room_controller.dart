@@ -1,10 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
-import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/chat_room_repository.dart';
 import 'package:we_eat/model/vo/chat_room_vo.dart';
@@ -12,11 +11,6 @@ import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 class ChatRoomController extends GetxController {
-  String? _chatName;
-  String? _chatRestaurant;
-  List<Map> _chatIdList = [
-    {"user_id": 'AuthController.info.user_id'},
-  ];
   final RxList<ChatRoomVO> _list = <ChatRoomVO>[].obs;
   final RxList<ChatRoomVO> _m_list = <ChatRoomVO>[].obs;
 
@@ -47,7 +41,7 @@ class ChatRoomController extends GetxController {
 
   Future getChatRooms() async {
     _isGetChatRoomsLoading.value = true;
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     ChatRoomRepository _chatRoomRepository = ChatRoomRepository();
 
     _chatRoomRepository.getChatRooms().then((result) {

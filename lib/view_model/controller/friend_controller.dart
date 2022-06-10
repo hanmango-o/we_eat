@@ -1,7 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/user_repository.dart';

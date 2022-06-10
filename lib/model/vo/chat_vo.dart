@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class ChatVO {
   late String type;
   late int chat_id;

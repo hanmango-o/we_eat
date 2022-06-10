@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/image/route.dart';
@@ -67,14 +66,14 @@ class _SplashScreenState extends State<SplashScreen> {
                       alignment: Alignment.bottomCenter,
                       children: [
                         CustomPaint(
-                          size: Size.fromHeight(700),
+                          size: const Size.fromHeight(700),
                           painter: CurvedPainter(
-                            color: Color(0xFFE8DEF8),
+                            color: const Color(0xFFE8DEF8),
                             isBack: true,
                           ),
                         ),
                         CustomPaint(
-                          size: Size.fromHeight(500),
+                          size: const Size.fromHeight(500),
                           painter: CurvedPainter(
                               color: Theme.of(context).primaryColor),
                         ),

@@ -1,10 +1,9 @@
-import 'dart:developer';
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/impl/http_impl.dart';
 import 'package:we_eat/model/vo/chat_room_vo.dart';
-import 'package:we_eat/model/vo/restaurant_vo.dart';
 
 class ChatRoomRepository extends HttpImpl {
   List<ChatRoomVO> list = [];

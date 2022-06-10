@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/user_controller.dart';
@@ -34,10 +33,10 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('친구 추가'),
-        iconTheme: IconThemeData(color: Colors.black),
+        title: const Text('친구 추가'),
+        iconTheme: const IconThemeData(color: Colors.black),
         leading: IconButton(
-          icon: Icon(CupertinoIcons.back),
+          icon: const Icon(CupertinoIcons.back),
           onPressed: () async {
             await _friendController.getFriends();
             Get.back();
@@ -94,7 +93,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
               paddingL: 0,
               titlePaddingL: 15.w,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border.symmetric(
                     horizontal: BorderSide(
                       color: Color.fromARGB(255, 198, 198, 198),
@@ -107,7 +106,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 child: Obx(
                   () {
                     if (_userController.isUsersLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else {
                       return ListView.builder(
                         itemCount: _userController.list.length,
@@ -142,7 +141,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                                         Icons.person,
                                         size: 22.sp,
                                       ),
-                                      backgroundColor: Color(0xFF888888),
+                                      backgroundColor: const Color(0xFF888888),
                                       foregroundColor: Colors.white,
                                     ),
                                   ),
@@ -176,7 +175,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
               ),
             ),
             ElevatedButton(
-              child: Text('친구 추가'),
+              child: const Text('친구 추가'),
               onPressed: () async {
                 if (selectedIndex == -1) {
                   Get.snackbar('선택된 사용자가 없어요.', '사용자를 선택해주세요.');

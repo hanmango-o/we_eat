@@ -26,17 +26,17 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('로그인'),
+        title: const Text('로그인'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SizedBox(
           height: 650.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Spacer(flex: 2),
+              const Spacer(flex: 2),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                 },
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -114,11 +114,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                 },
               ),
-              Spacer(flex: 3),
+              const Spacer(flex: 3),
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                  child: Text('로그인'),
+                  child: const Text('로그인'),
                   onPressed: () async {
                     if (_validateController.checkSignInValidated()) {
                       await _signController.signIn({
@@ -131,11 +131,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.center,
                 child: OutlinedButton(
-                  child: Text('회원가입'),
+                  child: const Text('회원가입'),
                   onPressed: () => Get.toNamed(Service.SIGN_UP_ROUTE),
                 ),
               ),

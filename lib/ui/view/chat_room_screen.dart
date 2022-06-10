@@ -34,7 +34,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   List messages = [];
   List<Object> messageList = [];
 
-  TextEditingController _chat = TextEditingController();
+  final TextEditingController _chat = TextEditingController();
   final ChatController _chatController = Get.put(ChatController());
   final UserController _userController = Get.find<UserController>();
 
@@ -94,9 +94,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               ),
             ],
           ),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           leading: IconButton(
-            icon: Icon(CupertinoIcons.back),
+            icon: const Icon(CupertinoIcons.back),
             onPressed: () {
               channel.sink.add(jsonEncode({
                 "type": ChatType.BACK.name,
@@ -113,9 +113,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           actions: [
             TextButton(
               child: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 margin: EdgeInsets.only(right: 10.w),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFE8DEF8),
                   borderRadius: BorderRadius.all(
                     Radius.circular(5),
@@ -159,7 +159,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Obx(() {
                       if (_chatController.isLoading) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                       return ListView.builder(
                         reverse: true,
@@ -201,7 +201,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       child: TextField(
                         focusNode: focusNode,
                         controller: _chat,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Send Message',
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -240,9 +240,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     FloatingActionButton(
-                      child: Icon(CupertinoIcons.location_fill),
+                      child: const Icon(CupertinoIcons.location_fill),
                       elevation: 0,
                       onPressed: () {
                         if (_chat.text.isNotEmpty) {
@@ -258,7 +258,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         _chat.text = '';
                       },
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                   ],
                 ),
               ),

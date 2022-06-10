@@ -1,25 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/data/service.dart';
-import 'package:we_eat/asset/status/auth.dart';
-import 'package:we_eat/model/vo/chat_vo.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/ui/view/chat_room_screen.dart';
-import 'package:we_eat/ui/widget/chat_bubble_widget.dart';
 import 'package:we_eat/ui/widget/profile_tile_lg_widget.dart';
 import 'package:we_eat/ui/widget/profile_tile_md_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
-import 'package:we_eat/view_model/controller/chat_controller.dart';
 import 'package:we_eat/view_model/controller/chat_room_controller.dart';
 import 'package:we_eat/view_model/controller/friend_controller.dart';
 import 'package:we_eat/view_model/controller/sign_controller.dart';
 import 'package:we_eat/view_model/controller/user_controller.dart';
-import 'package:web_socket_channel/io.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('WE_EAT'),
+        title: const Text('WE_EAT'),
       ),
       body: RefreshIndicator(
         color: Theme.of(context).primaryColor,
@@ -60,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () async {
                       await _signController.signOut();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.logout,
                       size: 30,
                       color: Color(0xFF828282),
@@ -69,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ExpansionPanelList(
                   elevation: 0,
-                  animationDuration: Duration(milliseconds: 1000),
+                  animationDuration: const Duration(milliseconds: 1000),
                   expansionCallback: (panelIndex, isExpanded) {
                     setState(() {
                       _isExpanded = !isExpanded;
@@ -91,11 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       body: Obx(
                         () {
                           if (_chatRoomController.isGetMyChatRoomsLoading) {
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
                           } else {
                             return ListView.builder(
                               shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: _chatRoomController.m_list.length,
                               itemBuilder: ((context, index) => InkWell(
                                     onTap: () {
@@ -107,16 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           vertical: 15, horizontal: 15),
-                                      margin: EdgeInsets.only(bottom: 10),
+                                      margin: const EdgeInsets.only(bottom: 10),
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFFFFDFD),
+                                        color: const Color(0xFFFFFDFD),
                                         border: Border.all(
                                           width: 1,
-                                          color: Color(0xFFE5E5E5),
+                                          color: const Color(0xFFE5E5E5),
                                         ),
-                                        borderRadius: BorderRadius.all(
+                                        borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                       ),
                                       child: Row(
@@ -129,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color:
                                                 Theme.of(context).primaryColor,
                                           ),
-                                          SizedBox(width: 10),
+                                          const SizedBox(width: 10),
                                           Text(
                                             _chatRoomController
                                                 .m_list[index].chat_name,
@@ -137,12 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .textTheme
                                                 .headline5,
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 CupertinoIcons.location,
                                                 size: 16,
                                                 color: Color.fromARGB(
@@ -186,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFE8DEF8),
-                      fixedSize: Size(double.infinity, double.infinity),
+                      primary: const Color(0xFFE8DEF8),
+                      fixedSize: const Size(double.infinity, double.infinity),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
@@ -199,12 +192,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Obx(
                     () {
                       if (_friendController.isLoading) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else {
                         return ListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: _friendController.list.length,
                           itemBuilder: ((context, index) => ProfileTile_md(
                                 name: _friendController.list[index].user_name,
@@ -221,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
               ],
             ),
           ),

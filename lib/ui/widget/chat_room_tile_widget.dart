@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +22,7 @@ class ChatRoomTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       dense: true,
-      contentPadding: EdgeInsets.only(bottom: 10),
+      contentPadding: const EdgeInsets.only(bottom: 10),
       leading: Icon(
         CupertinoIcons.chat_bubble_fill,
         size: 45.sp,
@@ -32,7 +34,7 @@ class ChatRoomTileWidget extends StatelessWidget {
       subtitle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Icon(
+          const Icon(
             CupertinoIcons.location,
             size: 16,
             color: Color.fromARGB(255, 138, 138, 138),

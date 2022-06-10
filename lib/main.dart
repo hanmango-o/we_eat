@@ -5,9 +5,7 @@ import 'package:we_eat/asset/data/font.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/ui/view/add_friend_screen.dart';
 import 'package:we_eat/ui/view/chat_list_screen.dart';
-import 'package:we_eat/ui/view/chat_room_screen.dart';
 import 'package:we_eat/ui/view/create_chat_room.dart';
-import 'package:we_eat/ui/view/home_screen.dart';
 import 'package:we_eat/ui/view/main_screen.dart';
 import 'package:we_eat/ui/view/sign_in_screen.dart';
 import 'package:we_eat/ui/view/sign_up_screen.dart';
@@ -32,7 +30,7 @@ class WeEat extends StatelessWidget {
         title: 'WE_EAT',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
-          primaryColor: Color(0xFF9561D8),
+          primaryColor: const Color(0xFF9561D8),
           fontFamily: Font.SEBANGGothic.name,
           textTheme: TextTheme(
             headline1: TextStyle(
@@ -66,7 +64,7 @@ class WeEat extends StatelessWidget {
             ),
             headline6: TextStyle(
               fontSize: 11.sp,
-              color: Color.fromARGB(255, 138, 138, 138),
+              color: const Color.fromARGB(255, 138, 138, 138),
               fontWeight: FontWeight.normal,
             ),
           ),
@@ -81,7 +79,7 @@ class WeEat extends StatelessWidget {
               fontWeight: FontWeight.w900,
             ),
           ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             elevation: 0,
             backgroundColor: Colors.white,
             selectedItemColor: Color(0xFF9561D8),
@@ -95,7 +93,7 @@ class WeEat extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               fixedSize: Size(320.w, 30.h),
-              primary: Color(0xFF9561D8),
+              primary: const Color(0xFF9561D8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(50.sp),
@@ -105,8 +103,8 @@ class WeEat extends StatelessWidget {
           ),
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-              primary: Color(0xFF9561D8),
-              side: BorderSide(
+              primary: const Color(0xFF9561D8),
+              side: const BorderSide(
                 color: Color(0xFF9561D8),
                 width: 1.8,
               ),
@@ -122,7 +120,7 @@ class WeEat extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: Color(0xFF9561D8),
           ),
           inputDecorationTheme: const InputDecorationTheme(
@@ -178,7 +176,7 @@ class WeEat extends StatelessWidget {
               ),
             ),
           ),
-          progressIndicatorTheme: ProgressIndicatorThemeData(
+          progressIndicatorTheme: const ProgressIndicatorThemeData(
             color: Color(0xFF9561D8),
           ),
         ),
@@ -186,23 +184,23 @@ class WeEat extends StatelessWidget {
         getPages: [
           GetPage(
             name: Service.SPLASH_ROUTE,
-            page: () => SplashScreen(),
+            page: () => const SplashScreen(),
           ),
           GetPage(
             name: Service.MAIN_ROUTE,
-            page: () => MainScreen(),
+            page: () => const MainScreen(),
           ),
           GetPage(
             name: Service.SIGN_UP_ROUTE,
-            page: () => SignUpScreen(),
+            page: () => const SignUpScreen(),
           ),
           GetPage(
             name: Service.SIGN_IN_ROUTE,
-            page: () => SignInScreen(),
+            page: () => const SignInScreen(),
           ),
           GetPage(
             name: Service.CHAT_LIST_ROUTE,
-            page: () => ChatListScreen(),
+            page: () => const ChatListScreen(),
           ),
           // GetPage(
           //   name: Service.CHAT_ROOM_ROUTE,
@@ -210,11 +208,11 @@ class WeEat extends StatelessWidget {
           // ),
           GetPage(
             name: Service.ADD_FRIEND_ROUTE,
-            page: () => AddFriendScreen(),
+            page: () => const AddFriendScreen(),
           ),
           GetPage(
             name: Service.CREATE_CHAT_ROOM_ROUTE,
-            page: () => CreateChatRoomScreen(),
+            page: () => const CreateChatRoomScreen(),
           )
         ],
       ),

@@ -40,18 +40,20 @@ class ChatBubble extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 7.w, bottom: 3.h),
                   child: Text(
-                    '${chat.user_name}',
+                    chat.user_name,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
-                        .merge(TextStyle(color: Colors.black)),
+                        .merge(const TextStyle(color: Colors.black)),
                   ),
                 ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
                 decoration: BoxDecoration(
-                  color: isOthers ? Color(0xFFE4E4E4) : Color(0xFFEADFF7),
+                  color: isOthers
+                      ? const Color(0xFFE4E4E4)
+                      : const Color(0xFFEADFF7),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16.sp),
                     topRight: Radius.circular(16.sp),
@@ -61,7 +63,7 @@ class ChatBubble extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  '${chat.message}',
+                  chat.message,
                   style: Theme.of(context).textTheme.headline5!.merge(
                         TextStyle(
                           color: isOthers

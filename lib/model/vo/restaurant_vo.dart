@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class RestaurantVO {
   late String place_name;
   late String address_name;

@@ -1,6 +1,3 @@
-import 'dart:collection';
-import 'dart:developer';
-
 import 'package:we_eat/model/interface/http_Interface.dart';
 
 import 'dart:convert' as convert;
@@ -12,7 +9,6 @@ class HttpImpl implements HttpInterface {
 
   @override
   Future post(Uri uri, Object? body) async {
-    // log(body.toString());
     var response = await http.post(
       uri,
       headers: {"Content-Type": "application/json"},

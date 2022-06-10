@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class Service {
   static String SPLASH_ROUTE = '/';
   static String MAIN_ROUTE = '/main';

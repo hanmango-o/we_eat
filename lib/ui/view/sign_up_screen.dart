@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/schinfo.dart';
 import 'package:we_eat/asset/status/validate.dart';
-import 'package:we_eat/model/repository/impl/http_impl.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/sign_controller.dart';
@@ -37,18 +38,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입'),
+        title: const Text('회원가입'),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () => Get.back(),
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             color: Colors.black,
           )
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -91,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 }
               },
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -145,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 }
               },
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -192,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 }
               },
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             BoardComponent(
               title: '인적사항 입력',
               paddingR: 0.0,
@@ -240,7 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -280,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -290,12 +291,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Color(0xFFFFFDFD),
-                      borderRadius: BorderRadius.all(
+                      color: const Color(0xFFFFFDFD),
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(15),
                       ),
                       border: Border.all(
-                        color: Color.fromARGB(255, 198, 198, 198),
+                        color: const Color.fromARGB(255, 198, 198, 198),
                       ),
                     ),
                     child: Padding(
@@ -326,11 +327,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                child: Text('회원가입'),
+                child: const Text('회원가입'),
                 onPressed: () async {
                   if (_validateController.checkSignUpValidated()) {
                     await _signController.signUp({
@@ -358,7 +359,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ],
         ),
       ),

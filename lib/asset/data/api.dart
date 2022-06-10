@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class API {
   static const String _PORT = '8080';
   static const String _HOST = 'localhost';

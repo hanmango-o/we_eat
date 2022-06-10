@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/status/auth.dart';
 import 'package:we_eat/model/vo/user_vo.dart';
 

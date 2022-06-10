@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/schinfo.dart';
 import 'package:we_eat/asset/status/validate.dart';

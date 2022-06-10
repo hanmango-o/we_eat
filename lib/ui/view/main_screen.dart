@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,8 +19,8 @@ class _MainScreenState extends State<MainScreen> {
 
   int _currentIndex = 0;
   final _navScreens = [
-    HomeScreen(),
-    ChatListScreen(),
+    const HomeScreen(),
+    const ChatListScreen(),
   ];
 
   @override
@@ -33,10 +31,11 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Container(
               padding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.h),
-              child: Icon(Icons.home),
+              child: const Icon(Icons.home),
               decoration: BoxDecoration(
-                color: _currentIndex == 0 ? Color(0xFFE8DEF8) : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+                color:
+                    _currentIndex == 0 ? const Color(0xFFE8DEF8) : Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
               ),
             ),
             label: 'Home',
@@ -44,10 +43,11 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Container(
               padding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.h),
-              child: Icon(Icons.chat),
+              child: const Icon(Icons.chat),
               decoration: BoxDecoration(
-                color: _currentIndex == 1 ? Color(0xFFE8DEF8) : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+                color:
+                    _currentIndex == 1 ? const Color(0xFFE8DEF8) : Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
               ),
             ),
             label: 'Chat',

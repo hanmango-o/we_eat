@@ -2,13 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/status/auth.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/sign_repository.dart';
-import 'package:we_eat/model/vo/user_vo.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 class SignController extends GetxController {
