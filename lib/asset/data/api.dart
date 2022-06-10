@@ -13,6 +13,7 @@ class API {
   static const String GET_Profile = _HTTP_ADDRESS + 'user/profile?user_id=';
   static const String GET_MyChatRooms =
       _HTTP_ADDRESS + 'chat/searchmychatroom?user_id=';
+  static const String GET_LoadData = _HTTP_ADDRESS + 'chat/loaddata?chat_id=';
 
   static const String POST_CreateChatRoom = _HTTP_ADDRESS + 'chat/create';
   static const String POST_SignUp = _HTTP_ADDRESS + 'sign/up';

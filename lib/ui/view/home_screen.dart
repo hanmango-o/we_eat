@@ -31,8 +31,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final SignController _signController = Get.put(SignController());
   final UserController _userController = Get.put(UserController());
-  final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
-  final FriendController _friendController = Get.put(FriendController());
+  final FriendController _friendController = Get.find<FriendController>();
+  final ChatRoomController _chatRoomController = Get.find<ChatRoomController>();
+  bool _isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ProfileTile_lg(
                   user: AuthController.to.user!,
+                  padding_B: 5.h,
                   trailing: IconButton(
                     onPressed: () async {
                       await _signController.signOut();
@@ -65,88 +67,107 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
-                BoardComponent(
-                  title: '참여중인 채팅방',
-                  paddingL: 0,
-                  paddingR: 0,
-                  paddingT: 10,
-                  backgroundColor: Colors.white,
-                  child: Obx(
-                    () {
-                      if (_chatRoomController.isGetMyChatRoomsLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _chatRoomController.m_list.length,
-                          itemBuilder: ((context, index) => InkWell(
-                                onTap: () {
-                                  Get.to(
-                                    () => ChatRoomScreen(
-                                      chatRoom:
-                                          _chatRoomController.m_list[index],
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 15),
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFFFDFD),
-                                    border: Border.all(
-                                      width: 1,
-                                      color: Color(0xFFE5E5E5),
-                                    ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Icon(
-                                        CupertinoIcons.chat_bubble_text_fill,
-                                        color: Theme.of(context).primaryColor,
+                ExpansionPanelList(
+                  elevation: 0,
+                  animationDuration: Duration(milliseconds: 1000),
+                  expansionCallback: (panelIndex, isExpanded) {
+                    setState(() {
+                      _isExpanded = !isExpanded;
+                    });
+                  },
+                  children: [
+                    ExpansionPanel(
+                      canTapOnHeader: true,
+                      headerBuilder: ((context, isExpanded) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '참여중인 채팅방',
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        );
+                      }),
+                      isExpanded: _isExpanded,
+                      body: Obx(
+                        () {
+                          if (_chatRoomController.isGetMyChatRoomsLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: _chatRoomController.m_list.length,
+                              itemBuilder: ((context, index) => InkWell(
+                                    onTap: () {
+                                      Get.to(
+                                        () => ChatRoomScreen(
+                                          chatRoom:
+                                              _chatRoomController.m_list[index],
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 15),
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFFFFDFD),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Color(0xFFE5E5E5),
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
                                       ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        _chatRoomController
-                                            .m_list[index].chat_name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5,
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           Icon(
-                                            CupertinoIcons.location,
-                                            size: 16,
-                                            color: Color.fromARGB(
-                                                255, 138, 138, 138),
+                                            CupertinoIcons
+                                                .chat_bubble_text_fill,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                           ),
+                                          SizedBox(width: 10),
                                           Text(
                                             _chatRoomController
-                                                .m_list[index].chat_restaurant,
+                                                .m_list[index].chat_name,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .headline5,
+                                          ),
+                                          Spacer(),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                CupertinoIcons.location,
+                                                size: 16,
+                                                color: Color.fromARGB(
+                                                    255, 138, 138, 138),
+                                              ),
+                                              Text(
+                                                _chatRoomController
+                                                    .m_list[index]
+                                                    .chat_restaurant,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6,
+                                              )
+                                            ],
                                           )
                                         ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        );
-                      }
-                    },
-                  ),
+                                      ),
+                                    ),
+                                  )),
+                            );
+                          }
+                        },
+                      ),
+                    )
+                  ],
                 ),
                 BoardComponent(
                   title: '친구 목록',
@@ -191,7 +212,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     _friendController.list[index].user_state,
                                 onTap: () async {
                                   await _userController.getProfile(
-                                      _friendController.list[index]);
+                                    _friendController.list[index].user_id,
+                                  );
                                 },
                               )),
                         );

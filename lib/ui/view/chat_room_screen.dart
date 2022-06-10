@@ -11,16 +11,18 @@ import 'package:we_eat/model/vo/chat_room_vo.dart';
 import 'package:we_eat/model/vo/chat_vo.dart';
 import 'package:we_eat/ui/widget/chat_bubble_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
+import 'package:we_eat/view_model/controller/chat_controller.dart';
+import 'package:we_eat/view_model/controller/user_controller.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-
-import 'package:web_socket_channel/status.dart' as status;
 
 class ChatRoomScreen extends StatefulWidget {
   final ChatRoomVO? chatRoom;
 
-  ChatRoomScreen({Key? key, required this.chatRoom}) : super(key: key);
+  const ChatRoomScreen({
+    Key? key,
+    required this.chatRoom,
+  }) : super(key: key);
 
   @override
   _ChatRoomScreenState createState() => _ChatRoomScreenState();
@@ -33,12 +35,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   List<Object> messageList = [];
 
   TextEditingController _chat = TextEditingController();
+  final ChatController _chatController = Get.put(ChatController());
+  final UserController _userController = Get.find<UserController>();
 
   @override
   void initState() {
     super.initState();
-    focusNode = FocusNode();
 
+    focusNode = FocusNode();
+    _chatController.loadData(widget.chatRoom!.chat_id);
     channel = IOWebSocketChannel.connect(Uri.parse(API.WS_ChatURL));
 
     channel.sink.add(jsonEncode({
@@ -145,26 +150,39 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               child: StreamBuilder(
                 stream: channel.stream,
                 builder: (context, snapshot) {
-                  log(snapshot.connectionState.toString());
                   if (snapshot.data != null) {
-                    print(snapshot.connectionState.toString());
-
                     Map<String, dynamic> data =
                         jsonDecode(snapshot.data.toString());
-                    messageList.add(ChatVO.fromMap(data));
-                    log(messageList.toString());
+                    _chatController.list.add(ChatVO.fromMap(data));
                   }
                   return Align(
                     alignment: Alignment.bottomCenter,
-                    child: ListView.builder(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 100.sp, horizontal: 15.w),
-                      shrinkWrap: true,
-                      itemCount: messageList.length,
-                      itemBuilder: ((context, index) {
-                        return ChatBubble(chat: messageList[index] as ChatVO);
-                      }),
-                    ),
+                    child: Obx(() {
+                      if (_chatController.isLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return ListView.builder(
+                        reverse: true,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 100.sp, horizontal: 15.w),
+                        shrinkWrap: true,
+                        itemCount: _chatController.list.length,
+                        itemBuilder: ((context, index) {
+                          return ChatBubble(
+                            chat: _chatController
+                                .list[_chatController.list.length - 1 - index],
+                            onTap: () async {
+                              await _userController.getProfile(
+                                _chatController
+                                    .list[
+                                        _chatController.list.length - 1 - index]
+                                    .user_id,
+                              );
+                            },
+                          );
+                        }),
+                      );
+                    }),
                   );
                 },
               ),

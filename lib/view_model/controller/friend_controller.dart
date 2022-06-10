@@ -32,11 +32,11 @@ class FriendController extends GetxController {
     await getFriends();
   }
 
-  Future addFriend(UserVO target) async {
+  Future addFriend(String user_id) async {
     UserRepository _userRepository = UserRepository();
     _userRepository.addFriend({
       'user_id': AuthController.to.user!.user_id,
-      'target_id': target.user_id,
+      'target_id': user_id,
     }).then((result) {
       switch (result) {
         case Result.success:

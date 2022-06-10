@@ -6,23 +6,23 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/data/font.dart';
+import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/user_repository.dart';
 import 'package:we_eat/model/vo/user_vo.dart';
 import 'package:we_eat/ui/component/board_component.dart';
 import 'package:we_eat/ui/widget/profile_tile_lg_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
+import 'package:we_eat/view_model/controller/friend_controller.dart';
 
 class UserController extends GetxController {
   final RxList<UserVO> _list = <UserVO>[].obs;
   Object _profile = Object().obs;
   final RxBool _isUsersLoading = false.obs;
-  final RxBool _isProfileLoading = false.obs;
 
   get list => _list;
   get profile => _profile;
   get isUsersLoading => _isUsersLoading.value;
-  get isProfileLoading => _isProfileLoading.value;
 
   void clearList() => _list.clear();
 
@@ -52,18 +52,19 @@ class UserController extends GetxController {
     }
   }
 
-  Future getProfile(UserVO user) async {
-    _isProfileLoading.value = true;
-    String url = API.GET_Profile + user.user_id;
+  Future getProfile(String user_id) async {
+    String url = API.GET_Profile + user_id;
     UserRepository _userRepository = UserRepository();
+    Get.dialog(Center(child: CircularProgressIndicator()));
     _userRepository.getProfile(url).then((result) {
       switch (result) {
         case Result.success:
+          Get.back();
           _profile = _userRepository.profile;
-          _isProfileLoading.value = false;
+          print(Get.previousRoute);
           Get.bottomSheet(
             Container(
-              height: 260.h,
+              height: Get.previousRoute == '/ChatRoomScreen' ? 320.h : 280.h,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(
@@ -76,11 +77,23 @@ class UserController extends GetxController {
                 paddingT: 15.h,
                 paddingR: 0,
                 paddingL: 0,
-                child: ProfileTile_lg(
-                  user: _profile as UserVO,
-                  backgroundColor: Colors.grey[200],
-                  avatarBackgroundColor: Color.fromARGB(255, 170, 170, 170),
-                ),
+                child: Get.previousRoute == '/ChatRoomScreen'
+                    ? ProfileTile_lg(
+                        user: _profile as UserVO,
+                        bottomChild: ElevatedButton(
+                          child: Text('친구 추가'),
+                          onPressed: () async {
+                            await FriendController().addFriend(user_id);
+                            Get.back();
+                          },
+                        ),
+                      )
+                    : ProfileTile_lg(
+                        user: _profile as UserVO,
+                        backgroundColor: Colors.grey[200],
+                        avatarBackgroundColor:
+                            Color.fromARGB(255, 170, 170, 170),
+                      ),
               ),
             ),
           );

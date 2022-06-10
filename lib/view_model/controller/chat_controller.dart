@@ -4,38 +4,35 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/chat.dart';
+import 'package:we_eat/asset/status/result.dart';
+import 'package:we_eat/model/repository/chat_repository.dart';
+import 'package:we_eat/model/vo/chat_vo.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatController extends GetxController {
   final RxBool _isLoading = false.obs;
-  final int chat_id;
+  final List<ChatVO> list = <ChatVO>[].obs;
   late IOWebSocketChannel channel;
 
   get isLoading => _isLoading.value;
 
-  ChatController({required this.chat_id});
-
-  @override
-  void onInit() async {
-    super.onInit();
-    log('dd');
-    await enterChat(chat_id);
-  }
-
-  Future enterChat(int chat_id) async {
+  Future loadData(int chat_id) async {
     _isLoading.value = true;
-    channel = IOWebSocketChannel.connect(API.WS_ChatURL);
-    print(channel);
-    channel.sink.add({
-      "type": ChatType.ENTER.name,
-      "chat_id": 2,
-      "user_id": AuthController.to.user!.user_id,
-      "user_name": AuthController.to.user!.user_name,
-      "message": ""
+    ChatRepository _chatRespository = ChatRepository();
+    String url = API.GET_LoadData + chat_id.toString();
+
+    _chatRespository.getLoadData(url).then((result) {
+      switch (result) {
+        case Result.success:
+          _isLoading.value = false;
+          list.addAll(_chatRespository.list);
+          update();
+          break;
+        case Result.error:
+        default:
+          break;
+      }
     });
-    print(channel.sink);
-    // await Future.delayed(Duration(milliseconds: 500));
-    _isLoading.value = false;
   }
 }

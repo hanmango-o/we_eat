@@ -17,7 +17,7 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
-  final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
+  final ChatRoomController _chatRoomController = Get.find<ChatRoomController>();
 
   @override
   Widget build(BuildContext context) {

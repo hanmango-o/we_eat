@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:we_eat/ui/view/chat_list_screen.dart';
 import 'package:we_eat/ui/view/home_screen.dart';
+import 'package:we_eat/view_model/controller/chat_room_controller.dart';
+import 'package:we_eat/view_model/controller/friend_controller.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final ChatRoomController _chatRoomController = Get.put(ChatRoomController());
+  final FriendController _friendController = Get.put(FriendController());
+
   int _currentIndex = 0;
   final _navScreens = [
     HomeScreen(),
@@ -48,10 +54,19 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
         currentIndex: _currentIndex,
-        onTap: (selectedIndex) {
+        onTap: (selectedIndex) async {
           setState(() {
             _currentIndex = selectedIndex;
           });
+          switch (selectedIndex) {
+            case 0:
+              await _friendController.getFriends();
+              await _chatRoomController.getMyChatRooms();
+              break;
+            case 1:
+              await _chatRoomController.getChatRooms();
+              break;
+          }
         },
       ),
       body: _navScreens.elementAt(_currentIndex),

@@ -182,7 +182,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                   Get.snackbar('선택된 사용자가 없어요.', '사용자를 선택해주세요.');
                 } else {
                   await _friendController.addFriend(
-                    _userController.list[selectedIndex],
+                    _userController.list[selectedIndex].user_id,
                   );
                 }
               },
