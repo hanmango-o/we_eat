@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
@@ -65,7 +63,6 @@ class ChatRoomController extends GetxController {
     _chatRoomRepository.createChatRoom(body).then((result) {
       switch (result) {
         case Result.success:
-          log(_chatRoomRepository.chatRoom.toString());
           Get.to(
             () => ChatRoomScreen(chatRoom: _chatRoomRepository.chatRoom),
           );

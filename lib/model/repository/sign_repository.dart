@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
 import 'package:we_eat/model/repository/impl/http_impl.dart';
@@ -40,8 +38,7 @@ class SignRepository extends HttpImpl {
     try {
       Uri uri = super.getUri(url);
       var result = await super.get(uri);
-      log(result.toString());
-      log(result.runtimeType.toString());
+
       if (result == 0) {
         return Result.error;
       }

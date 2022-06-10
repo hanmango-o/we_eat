@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -354,8 +352,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Get.snackbar('회원가입 실패', '다시 시도해주세요.');
                     }
                   }
-
-                  log(AuthController.to.user.toString());
                 },
               ),
             ),

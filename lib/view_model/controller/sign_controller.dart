@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/api.dart';
@@ -30,7 +28,6 @@ class SignController extends GetxController {
         switch (result) {
           case Result.success:
             AuthController.to.signIn(_signRepository.user!);
-            log(AuthController.to.user.toString());
             Get.offAllNamed(Service.MAIN_ROUTE);
             break;
           case Result.denied:
@@ -69,7 +66,6 @@ class SignController extends GetxController {
         switch (result) {
           case Result.success:
             AuthController.to.signIn(_signRepository.user!);
-            log(AuthController.to.user.toString());
             Get.offAllNamed(Service.MAIN_ROUTE);
             Get.snackbar('회원가입 성공', '자동 로그인 후 홈화면으로 이동합니다.');
             break;
@@ -90,8 +86,6 @@ class SignController extends GetxController {
   Future signOut() async {
     if (AuthController.to.user == null ||
         AuthController.to.status == Auth.signOut) {
-      log(AuthController.to.user.toString());
-      log(AuthController.to.status.toString());
       Get.snackbar('로그아웃 할 수 없습니다.', '다시 시도해주세요.');
     } else {
       Get.defaultDialog(

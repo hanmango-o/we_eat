@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
@@ -57,7 +55,6 @@ class RestaurantController extends GetxController {
           case Result.success:
             _list.value = _restaurantRepository.list;
             _isLoading.value = false;
-            log(_list.toString());
             update();
             break;
           case Result.error:

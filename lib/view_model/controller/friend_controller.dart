@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/status/result.dart';
@@ -23,7 +21,6 @@ class FriendController extends GetxController {
     for (UserVO element in selectedFriends) {
       list.add({'id': element.user_id});
     }
-    log(list.toString());
     return list;
   }
 
@@ -65,7 +62,6 @@ class FriendController extends GetxController {
           break;
         case Result.error:
         default:
-          log('d');
           break;
       }
     });

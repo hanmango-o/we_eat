@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -246,7 +245,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       elevation: 0,
                       onPressed: () {
                         if (_chat.text.isNotEmpty) {
-                          log(_chat.text);
                           channel.sink.add(jsonEncode({
                             "type": ChatType.TALK.name,
                             "chat_id": widget.chatRoom!.chat_id,
