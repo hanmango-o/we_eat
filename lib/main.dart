@@ -1,3 +1,6 @@
+// Copyright 2022 hanmango-o <hanmango.o@gmail.com> all rights reserved.
+// [Author]hanmango-o (https://github.com/hanmango-o)
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,7 +17,6 @@ import 'package:we_eat/view_model/controller/auth_controller.dart';
 
 void main() {
   Get.put(AuthController());
-
   runApp(const WeEat());
 }
 
@@ -30,7 +32,7 @@ class WeEat extends StatelessWidget {
         title: 'WE_EAT',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
-          primaryColor: const Color(0xFF9561D8),
+          primaryColor: const Color.fromARGB(255, 149, 97, 216),
           fontFamily: Font.SEBANGGothic.name,
           textTheme: TextTheme(
             headline1: TextStyle(
@@ -81,8 +83,8 @@ class WeEat extends StatelessWidget {
           ),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             elevation: 0,
-            backgroundColor: Colors.white,
-            selectedItemColor: Color(0xFF9561D8),
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            selectedItemColor: Color.fromARGB(255, 149, 97, 216),
             unselectedItemColor: Color.fromARGB(255, 191, 190, 192),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
@@ -93,7 +95,7 @@ class WeEat extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               fixedSize: Size(320.w, 30.h),
-              primary: const Color(0xFF9561D8),
+              primary: const Color.fromARGB(255, 149, 97, 216),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(50.sp),
@@ -103,9 +105,9 @@ class WeEat extends StatelessWidget {
           ),
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-              primary: const Color(0xFF9561D8),
+              primary: const Color.fromARGB(255, 149, 97, 216),
               side: const BorderSide(
-                color: Color(0xFF9561D8),
+                color: Color.fromARGB(255, 149, 97, 216),
                 width: 1.8,
               ),
               textStyle: TextStyle(
@@ -121,15 +123,15 @@ class WeEat extends StatelessWidget {
             ),
           ),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Color(0xFF9561D8),
+            backgroundColor: Color.fromARGB(255, 149, 97, 216),
           ),
           inputDecorationTheme: const InputDecorationTheme(
-            iconColor: Color(0xFF9561D8),
+            iconColor: Color.fromARGB(255, 149, 97, 216),
             hintStyle: TextStyle(
               color: Color.fromARGB(255, 157, 158, 160),
             ),
             floatingLabelStyle: TextStyle(
-              color: Color(0xFF9561D8),
+              color: Color.fromARGB(255, 149, 97, 216),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(
@@ -155,7 +157,7 @@ class WeEat extends StatelessWidget {
                 Radius.circular(15),
               ),
             ),
-            fillColor: Color(0xFFFFFDFD),
+            fillColor: Color.fromARGB(255, 255, 253, 253),
             filled: true,
             focusColor: Color.fromARGB(255, 255, 255, 255),
             contentPadding: EdgeInsets.only(left: 20, right: 20),
@@ -177,7 +179,7 @@ class WeEat extends StatelessWidget {
             ),
           ),
           progressIndicatorTheme: const ProgressIndicatorThemeData(
-            color: Color(0xFF9561D8),
+            color: Color.fromARGB(255, 149, 97, 216),
           ),
         ),
         initialRoute: Service.SPLASH_ROUTE,
@@ -202,10 +204,6 @@ class WeEat extends StatelessWidget {
             name: Service.CHAT_LIST_ROUTE,
             page: () => const ChatListScreen(),
           ),
-          // GetPage(
-          //   name: Service.CHAT_ROOM_ROUTE,
-          //   page: () => ChatRoomScreen(),
-          // ),
           GetPage(
             name: Service.ADD_FRIEND_ROUTE,
             page: () => const AddFriendScreen(),

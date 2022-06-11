@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,12 +7,14 @@ import 'package:get/get.dart';
 import 'package:we_eat/asset/data/api.dart';
 import 'package:we_eat/asset/data/service.dart';
 import 'package:we_eat/asset/status/chat.dart';
+import 'package:we_eat/asset/status/validate.dart';
 import 'package:we_eat/model/vo/chat_room_vo.dart';
 import 'package:we_eat/model/vo/chat_vo.dart';
 import 'package:we_eat/ui/widget/chat_bubble_widget.dart';
 import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/chat_controller.dart';
 import 'package:we_eat/view_model/controller/user_controller.dart';
+import 'package:we_eat/view_model/controller/validate_controller.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +39,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final TextEditingController _chat = TextEditingController();
   final ChatController _chatController = Get.put(ChatController());
   final UserController _userController = Get.find<UserController>();
+  final ValidateController _validateController = Get.put(ValidateController());
 
   @override
   void initState() {
@@ -170,6 +174,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           return ChatBubble(
                             chat: _chatController
                                 .list[_chatController.list.length - 1 - index],
+                            b_chat: _chatController.list.length - 1 - index > 0
+                                ? _chatController.list[
+                                    _chatController.list.length - 1 - index - 1]
+                                : null,
                             onTap: () async {
                               await _userController.getProfile(
                                 _chatController
@@ -244,14 +252,27 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       child: const Icon(CupertinoIcons.location_fill),
                       elevation: 0,
                       onPressed: () {
-                        if (_chat.text.isNotEmpty) {
-                          channel.sink.add(jsonEncode({
-                            "type": ChatType.TALK.name,
-                            "chat_id": widget.chatRoom!.chat_id,
-                            "user_id": AuthController.to.user!.user_id,
-                            "user_name": AuthController.to.user!.user_name,
-                            "message": _chat.text,
-                          }));
+                        String message = _chat.text.trim();
+
+                        switch (_validateController.validateChat(message)) {
+                          case Validate.maxLength:
+                            Get.snackbar('메시지 전송 실패', '메시지는 최대 255글자이여야 합니다.');
+                            break;
+                          case Validate.minLength:
+                            Get.snackbar('메시지 전송 실패', '메시지를 입력해주세요.');
+                            break;
+                          case Validate.pass:
+                            channel.sink.add(jsonEncode({
+                              "type": ChatType.TALK.name,
+                              "chat_id": widget.chatRoom!.chat_id,
+                              "user_id": AuthController.to.user!.user_id,
+                              "user_name": AuthController.to.user!.user_name,
+                              "message": _chat.text,
+                            }));
+                            break;
+                          default:
+                            Get.snackbar('메시지 전송 실패', '다시 시도해주세요.');
+                            break;
                         }
                         _chat.text = '';
                       },

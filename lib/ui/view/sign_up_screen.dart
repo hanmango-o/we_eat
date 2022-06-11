@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:we_eat/asset/data/schinfo.dart';
 import 'package:we_eat/asset/status/validate.dart';
 import 'package:we_eat/ui/component/board_component.dart';
-import 'package:we_eat/view_model/controller/auth_controller.dart';
 import 'package:we_eat/view_model/controller/sign_controller.dart';
 import 'package:we_eat/view_model/controller/validate_controller.dart';
 

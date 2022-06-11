@@ -24,7 +24,7 @@ class RestaurantController extends GetxController {
   /// [getRestaurants]에서 Method call의 시작과 종료 시점을 알려주는 역할을 합니다.
   /// [GetxController]를 통해 구현했으며, [obs]변수의 [Future] 사용 시 활용하게 됩니다.
   ///
-  /// |[_isLoading]|[signOut]작동 시점                                          |
+  /// |[_isLoading]|[getRestaurants]작동 시점                                          |
   /// |:-----------|:---------------------------------------------------------|
   /// |   `true`   |음식점 요청이 완료되어 [_list]에 정상적으로 음식점 정보가 들어온 상태    |
   /// |   `false`  |음식점 요청을 수행하고 있는 상태로, [_list]에 아직 음식점 정보가 없는 상태|

@@ -12,17 +12,28 @@ class ValidateController extends GetxController {
   String? inputSID;
   String inputDept = SchInfo.major[0];
 
+  // sign in
+  String? id;
+  String? pw;
+
+  // Indicator Check
   bool isIDValidated = false;
   bool isPWValidated = false;
   bool isNameValidated = false;
   bool isSIDValidated = false;
 
-  // sign in
-  String? id;
-  String? pw;
-
   bool isSignInIDValidated = false;
   bool isSignInPWValidated = false;
+
+  Validate validateChat(String message) {
+    if (message.isEmpty) {
+      return Validate.minLength;
+    }
+    if (message.length > 255) {
+      return Validate.maxLength;
+    }
+    return Validate.pass;
+  }
 
   Validate validatePW(String pw) {
     if (pw.contains(RegExp(r'[\s]'))) {

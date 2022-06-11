@@ -40,10 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
           builder: (context, snapshot) {
             return Center(
               child: Stack(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Align(
-                    // alignment: Alignment.topCenter,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,14 +66,15 @@ class _SplashScreenState extends State<SplashScreen> {
                         CustomPaint(
                           size: const Size.fromHeight(700),
                           painter: CurvedPainter(
-                            color: const Color(0xFFE8DEF8),
+                            color: const Color.fromARGB(255, 232, 222, 248),
                             isBack: true,
                           ),
                         ),
                         CustomPaint(
                           size: const Size.fromHeight(500),
                           painter: CurvedPainter(
-                              color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).primaryColor,
+                          ),
                         ),
                       ],
                     ),

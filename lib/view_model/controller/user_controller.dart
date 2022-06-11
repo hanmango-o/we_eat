@@ -87,7 +87,8 @@ class UserController extends GetxController {
                       )
                     : ProfileTile_lg(
                         user: _profile as UserVO,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor:
+                            const Color.fromARGB(255, 238, 238, 238),
                         avatarBackgroundColor:
                             const Color.fromARGB(255, 170, 170, 170),
                       ),
